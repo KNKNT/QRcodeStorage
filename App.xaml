@@ -7,7 +7,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Style/Palette.xaml"/>
-                <ResourceDictionary Source="Style/MenuRadioButton.xaml"/>
+                <ResourceDictionary Source="/Style/MenuRadioButton.xaml"/>
+                <ResourceDictionary Source="/Style/ToggleButton.xaml"/>
+                <ResourceDictionary Source="/Style/CancelButton.xaml"/>
+                <ResourceDictionary Source="/Style/UpdateButton.xaml"/>
+                <ResourceDictionary Source="/Style/AcceptButton.xaml"/>
                 <ResourceDictionary Source="/Style/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

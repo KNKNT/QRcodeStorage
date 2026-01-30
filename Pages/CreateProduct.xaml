@@ -1,0 +1,88 @@
+﻿<Page x:Class="QRcodeStorage.Pages.CreateProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:QRcodeStorage.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1350"
+      Title="CreateProduct">
+
+    <Border Padding="30,0,30,0" Background="{StaticResource Background}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Создание нового товара" Foreground="{StaticResource Foreground}" FontSize="30" FontWeight="Bold" Margin="0,0,0,5"/>
+                <TextBlock Text="Заполните форму для добавления товара в базу" FontSize="14" Foreground="{StaticResource PageForeground}"/>
+            </StackPanel>
+
+            <Border Grid.Row="1" Background="White" CornerRadius="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="15,15,15,0">
+                            <TextBlock Text="Название товара" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <TextBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Количество" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <TextBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                        </StackPanel>
+                        <StackPanel Margin="15,15,15,0" Grid.Column="1">
+                            <TextBlock Text="Категория *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <ComboBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Производитель *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <ComboBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Место хранения *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <TextBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+            <Border 
+                Grid.Row="2"
+                Margin="0,30,0,0"
+                CornerRadius="15"
+                Background="White">
+                
+                <Grid Margin="15,15,15,0">
+                    <TextBlock 
+                        Text="Описание *" 
+                        FontSize="14" 
+                        FontWeight="Medium" 
+                        Margin="0,0,0,5"/>
+                    <TextBox 
+                        FontSize="14" 
+                        Height="auto" 
+                        Margin="0,20,0,15" 
+                        AcceptsReturn="True" 
+                        AcceptsTab="True" 
+                        TextWrapping="Wrap"/>
+                </Grid>
+            </Border>
+
+            <StackPanel 
+                Margin="0,15,0,15"
+                Grid.Row="3"
+                Orientation="Horizontal" 
+                HorizontalAlignment="Right">
+
+                <Button Style="{StaticResource CancelButton}" Height="45" Width="200" Content="Очистить форму" Margin="0,0,15,0"/>
+                <Button Style="{StaticResource AcceptButton}" Width="200" Height="45" Content="Добавить товар"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Page>

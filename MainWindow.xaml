@@ -5,23 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QRcodeStorage"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="MainWindow" Height="800" Width="1500" WindowStyle="SingleBorderWindow">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="58" MaxWidth="280"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
 
         <Grid Background="{StaticResource Foreground}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="auto" />
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Viewbox Margin="40,15,40,15">
-                <StackPanel>
+            <Viewbox Margin="40,15,40, 0" MaxHeight="140" >
+                <StackPanel Margin="15">
                     <TextBlock Text="📦"
                                FontSize="40"
                                HorizontalAlignment="Center"
@@ -40,11 +40,12 @@
                 </StackPanel>
             </Viewbox>
 
+
             <StackPanel Margin="0,15,15,15" Grid.Row="1">
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар"/>
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ShowProduct}" Content="Просмотр товара"/>
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR"/>
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR"/>
+                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар" Checked="CreateProducts_Checked"/>
+                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ShowProduct}" Content="Просмотр товара" Checked="ShowProducts_Checked"/>
+                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR" Checked="GenerateQR_Checked"/>
+                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR" Checked="ScanQR_Checked"/>
             </StackPanel>
             
             
@@ -55,7 +56,8 @@
                       Background="Transparent" 
                       Width="10"/>
 
-        <ContentControl Grid.Column="1"/>
+        <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Grid.Column="1"/>
+        
 
     </Grid>
 </Window>
