@@ -9,5 +9,9 @@
     <SolidColorBrush x:Key="Active" Color="#48627d"/>
     <SolidColorBrush x:Key="DefaultForeground" Color="#9badbf"/>
     
-    
+    <!--SysBottons-->
+    <SolidColorBrush x:Key="Exit" Color="#CE636B"/>
+    <SolidColorBrush x:Key="Other" Color="#435d78"/>
+
+
 </ResourceDictionary>

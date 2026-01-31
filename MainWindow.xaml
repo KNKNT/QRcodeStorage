@@ -5,59 +5,114 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QRcodeStorage"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1500" WindowStyle="SingleBorderWindow">
+        Height="800" Width="1500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResize">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="5"/>
+    </WindowChrome.WindowChrome>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" MinWidth="58" MaxWidth="280"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#34495E" MouseDown="Border_MouseDown">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button FontSize="20" Style="{StaticResource OtherButton}" Click="Button_Click_2">
+                    <Viewbox Margin="2">
+                        <Canvas Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path
+                                Fill="White"
+                                Data="{StaticResource icon_Hide}" Width="9" Height="1" Stretch="Fill" Canvas.Left="5.084" Canvas.Top="13.083" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                >
+
+                            </Path>
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button FontSize="20" Style="{StaticResource OtherButton}" Click="Button_Click_1">
+                    <Viewbox Margin="2">
+                        <Canvas Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path
+                                Fill="White"
+                                Data="{StaticResource icon_Expand}" HorizontalAlignment="Center" Canvas.Top="5.644" VerticalAlignment="Center" Height="9" Canvas.Left="5.941" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Width="9" 
+                                >
+
+                            </Path>
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button FontSize="20" Style="{StaticResource ExitButton}" Click="Button_Click">
+                    <Viewbox Margin="2">
+                        <Canvas Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path
+                                Fill="White"
+                                Data="{StaticResource icon_Close}" HorizontalAlignment="Center" Canvas.Top="5.644" VerticalAlignment="Center" Height="9" Canvas.Left="5.941" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Width="9" >
+                            </Path>
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" MinWidth="58" MaxWidth="280"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
 
-        <Grid Background="{StaticResource Foreground}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+            <Grid Background="{StaticResource Foreground}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <Viewbox Margin="40,15,40, 0" MaxHeight="140" >
-                <StackPanel Margin="15">
-                    <TextBlock Text="📦"
+                <Viewbox Margin="40,15,40, 0" MaxHeight="140" >
+                    <StackPanel Margin="15">
+                        <TextBlock Text="📦"
                                FontSize="40"
                                HorizontalAlignment="Center"
                                Foreground="White" />
 
-                    <TextBlock Text="Склад QR" 
+                        <TextBlock Text="Склад QR" 
                                Foreground="White" 
                                HorizontalAlignment="Center" 
                                FontSize="20"
                                FontWeight="Bold"/>
-                    <TextBlock Text="Управление товарами" 
+                        <TextBlock Text="Управление товарами" 
                                Foreground="White" 
                                HorizontalAlignment="Center" 
                                FontSize="14"
                                FontWeight="Thin"/>
+                    </StackPanel>
+                </Viewbox>
+
+
+                <StackPanel Margin="0,15,15,15" Grid.Row="1">
+                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар" Checked="CreateProducts_Checked"/>
+                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ShowProduct}" Content="Просмотр товара" Checked="ShowProducts_Checked"/>
+                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR" Checked="GenerateQR_Checked"/>
+                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR" Checked="ScanQR_Checked"/>
                 </StackPanel>
-            </Viewbox>
 
 
-            <StackPanel Margin="0,15,15,15" Grid.Row="1">
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар" Checked="CreateProducts_Checked"/>
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ShowProduct}" Content="Просмотр товара" Checked="ShowProducts_Checked"/>
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR" Checked="GenerateQR_Checked"/>
-                <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR" Checked="ScanQR_Checked"/>
-            </StackPanel>
-            
-            
-        </Grid>
-        
-        <GridSplitter Grid.Column="0" 
+            </Grid>
+
+            <GridSplitter Grid.Column="0" 
                       HorizontalAlignment="Right" 
                       Background="Transparent" 
                       Width="10"/>
 
-        <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Grid.Column="1"/>
-        
+            <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Grid.Column="1"/>
 
+
+        </Grid>
     </Grid>
+
 </Window>

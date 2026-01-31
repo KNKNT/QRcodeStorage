@@ -22,6 +22,15 @@ namespace QRcodeStorage
             InitializeComponent();
              
         }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
+        private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
+        private void Button_Click_2(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState == WindowState.Maximized
+                ? WindowState.Normal
+                : WindowState.Maximized;
+        }
 
         private void ShowProducts_Checked(object sender, RoutedEventArgs e)
         {
@@ -41,5 +50,7 @@ namespace QRcodeStorage
         {
             NavigationFrame.Content = new ScanQR();
         }
+
+        
     }
 }
