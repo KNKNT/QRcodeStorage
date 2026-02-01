@@ -20,7 +20,7 @@ namespace QRcodeStorage
         public MainWindow()
         {
             InitializeComponent();
-             
+            btnCreateProduct.IsChecked = true;
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
         private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
@@ -50,7 +50,5 @@ namespace QRcodeStorage
         {
             NavigationFrame.Content = new ScanQR();
         }
-
-        
     }
 }

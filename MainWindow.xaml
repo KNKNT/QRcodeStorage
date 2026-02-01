@@ -11,9 +11,9 @@
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="CanResize">
-    <WindowChrome.WindowChrome>
+    <!--<WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="5"/>
-    </WindowChrome.WindowChrome>
+    </WindowChrome.WindowChrome>-->
 
     <Grid Margin="8">
         <Grid.Effect>
@@ -23,7 +23,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
+        
         <Border Background="#34495E" MouseDown="Border_MouseDown">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button FontSize="20" Style="{StaticResource OtherButton}" Click="Button_Click_2">
@@ -99,7 +99,7 @@
 
 
                 <StackPanel Margin="0,15,15,15" Grid.Row="1">
-                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар" Checked="CreateProducts_Checked"/>
+                    <RadioButton x:Name="btnCreateProduct" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар" Checked="CreateProducts_Checked"/>
                     <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ShowProduct}" Content="Просмотр товара" Checked="ShowProducts_Checked"/>
                     <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR" Checked="GenerateQR_Checked"/>
                     <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR" Checked="ScanQR_Checked"/>

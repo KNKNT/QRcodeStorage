@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QRcodeStorage.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,18 @@ namespace QRcodeStorage.Pages
     /// </summary>
     public partial class ShowProduct : Page
     {
+        DataBase dataBase = new();
+        Categories catigories = new();
+
         public ShowProduct()
         {
             InitializeComponent();
+            LoadCategoriesComboBox();
+        }
+        private void LoadCategoriesComboBox()
+        {
+            var categories = dataBase.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
+            catigories.LoadComboBoxes(cbCategory, categories, "Все категории");
         }
     }
 }
