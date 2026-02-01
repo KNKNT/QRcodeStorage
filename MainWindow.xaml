@@ -9,12 +9,16 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
+        Background="Transparent"
         ResizeMode="CanResize">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="5"/>
     </WindowChrome.WindowChrome>
 
-    <Grid>
+    <Grid Margin="8">
+        <Grid.Effect>
+            <DropShadowEffect Direction="0" BlurRadius="8" Opacity="0.2" ShadowDepth="0"/>
+        </Grid.Effect>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
@@ -109,7 +113,7 @@
                       Background="Transparent" 
                       Width="10"/>
 
-            <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Grid.Column="1"/>
+            <Frame x:Name="NavigationFrame" Background="{StaticResource Background}" NavigationUIVisibility="Hidden" Grid.Column="1"/>
 
 
         </Grid>

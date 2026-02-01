@@ -34,18 +34,18 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Margin="15,15,15,0">
-                            <TextBlock Text="Название товара" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
-                            <TextBlock Text="Количество" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Название товара *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <TextBox x:Name="tbProduct" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Количество *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <TextBox x:Name="tbCount" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
                         </StackPanel>
                         <StackPanel Margin="15,15,15,0" Grid.Column="1">
-                            <TextBlock Text="Категория *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <ComboBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
-                            <TextBlock Text="Производитель *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <ComboBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
-                            <TextBlock Text="Место хранения *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Категория " FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <ComboBox Name="cbCategory" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Производитель " FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <ComboBox Name="cbMakers" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                            <TextBlock Text="Место хранения " FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <TextBox x:Name="tbPlace" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
                         </StackPanel>
                     </Grid>
 
@@ -60,11 +60,11 @@
                 
                 <Grid Margin="15,15,15,0">
                     <TextBlock 
-                        Text="Описание *" 
+                        Text="Описание " 
                         FontSize="14" 
                         FontWeight="Medium" 
                         Margin="0,0,0,5"/>
-                    <TextBox 
+                    <TextBox x:Name="tbDescription" 
                         FontSize="14" 
                         Height="auto" 
                         Margin="0,20,0,15" 
@@ -80,7 +80,7 @@
                 Orientation="Horizontal" 
                 HorizontalAlignment="Right">
 
-                <Button Style="{StaticResource CancelButton}" Height="45" Width="200" Content="Очистить форму" Margin="0,0,15,0"/>
+                <Button x:Name="ClearData" Style="{StaticResource CancelButton}" Height="45" Width="200" Content="Очистить форму" Margin="0,0,15,0" Click="ClearData_Click"/>
                 <Button Style="{StaticResource AcceptButton}" Width="200" Height="45" Content="Добавить товар"/>
             </StackPanel>
         </Grid>
