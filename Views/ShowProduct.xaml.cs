@@ -21,7 +21,7 @@ namespace QRcodeStorage.Pages
     /// </summary>
     public partial class ShowProduct : Page
     {
-        DataBase dataBase = new();
+        ShowProductModel showProductModel = new();
         Categories catigories = new();
 
         public ShowProduct()
@@ -31,7 +31,7 @@ namespace QRcodeStorage.Pages
         }
         private void LoadCategoriesComboBox()
         {
-            var categories = dataBase.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
+            var categories = showProductModel.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
             catigories.LoadComboBoxes(cbCategory, categories, "Все категории");
         }
     }

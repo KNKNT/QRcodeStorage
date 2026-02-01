@@ -22,7 +22,7 @@ namespace QRcodeStorage.Pages
     /// </summary>
     public partial class CreateProduct : Page
     {
-        DataBase dataBase = new();
+        CreateProductModel createProduct = new();
         Categories catigories = new();
         string? name, place, description;
         int? id, count, idCategory, idMaker;
@@ -36,16 +36,14 @@ namespace QRcodeStorage.Pages
         }
         private void LoadMakersComboBox()
         {
-            var makers = dataBase.LoadMakers().Select(m => (m.Id, m.Maker)).ToList();
+            var makers = createProduct.LoadMakers().Select(m => (m.Id, m.Maker)).ToList();
             catigories.LoadComboBoxes(cbMakers, makers);
         }
         private void LoadCategoriesComboBox()
         {
-            var categories = dataBase.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
+            var categories = createProduct.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
             catigories.LoadComboBoxes(cbCategory, categories);
         }
-
-        
 
         private void ClearData_Click(object sender, RoutedEventArgs e)
         {
@@ -106,7 +104,7 @@ namespace QRcodeStorage.Pages
                 IdMaker = idMaker,
                 Description = description,
             };
-            dataBase.InsertProduct(product);
+            createProduct.InsertProduct(product);
         }
     }
 }

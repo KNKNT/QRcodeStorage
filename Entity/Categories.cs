@@ -7,10 +7,10 @@ namespace QRcodeStorage.Models
         public int Id { get; set; }
         public string Category { get; set; }
 
-        public void LoadComboBoxes(ComboBox comboBox, List<(int Id, string Text)> data, string defaultText = "--Не выбрано--")
+        public void LoadComboBoxes(ComboBox comboBox, List<(int Id, string Text)> data, string defaultText = "Не выбрано")
         {
             var items = new List<object>();
-            items.Add(new { Id = 0, Text = defaultText });
+            items.Add(new { Id = 0, Text = $"--{defaultText}--"});
 
             foreach (var item in data)
             {
