@@ -26,14 +26,14 @@ namespace QRcodeStorage.Pages
         Categories catigories = new();
         string? name, place, description;
         int? id, count, idCategory, idMaker;
-
-
         public CreateProduct()
         {
             InitializeComponent();
             LoadCategoriesComboBox();
             LoadMakersComboBox();
         }
+
+        private void ClearData_Click(object sender, RoutedEventArgs e) => ClearData();
         private void LoadMakersComboBox()
         {
             var makers = createProduct.LoadMakers().Select(m => (m.Id, m.Maker)).ToList();
@@ -44,8 +44,7 @@ namespace QRcodeStorage.Pages
             var categories = createProduct.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
             catigories.LoadComboBoxes(cbCategory, categories);
         }
-
-        private void ClearData_Click(object sender, RoutedEventArgs e)
+        private void ClearData()
         {
             tbCount.Clear();
             tbDescription.Clear();
@@ -56,7 +55,6 @@ namespace QRcodeStorage.Pages
             cbCategory.SelectedIndex = 0;
             cbMakers.Text = string.Empty;
             cbMakers.SelectedIndex = 0;
-
         }
         private void tbCount_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -104,7 +102,10 @@ namespace QRcodeStorage.Pages
                 IdMaker = idMaker,
                 Description = description,
             };
-            createProduct.InsertProduct(product);
+            bool result = createProduct.InsertProduct(product);
+
+            if (result)
+                ClearData();
         }
     }
 }

@@ -7,6 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1350"
       Title="ShowProduct">
+    <Page.Resources>
+        <local:BooleanConverter x:Key="BooleanConverter" />
+    </Page.Resources>
 
     <Border Padding="30,0,30,0" Background="{StaticResource Background}">
         <Grid>
@@ -41,7 +44,7 @@
                         Style="{StaticResource UpdateButton}"
                         Content="Обновить"
                         Height="80"
-                        Width="150" Margin="15,0,0,0"/>
+                        Width="150" Margin="15,0,0,0" Click="btnUpdate_Click"/>
                 </StackPanel>
             </Grid>
 
@@ -104,19 +107,19 @@
                 <TextBlock Text="Товары на складе" FontSize="14" FontWeight="Medium" Margin="15,0,0,15"/>
                 <TextBlock FontSize="14" Foreground="Gray" FontWeight="Medium" Margin="0,0,15,0" HorizontalAlignment="Right">
                     <Run Text="Найденно: "/>
-                    <Run Text="0"/>
+                    <Run Name="tblRowCount" Text="0"/>
                 </TextBlock>
 
-                <DataGrid Grid.Row="1" Margin="0,0,0,30" AutoGenerateColumns="False">
+                <DataGrid x:Name="dgProducts" IsReadOnly="True" Grid.Row="1" Margin="0,0,0,30" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40"/>
-                        <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="0.3*"/>
-                        <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="0.3*"/>
-                        <DataGridTextColumn Header="Производитель" Binding="{Binding Maker}" Width="0.3*" />
-                        <DataGridTextColumn Header="Кол-во" Binding="{Binding Count}" Width="0.2*" />
-                        <DataGridTextColumn Header="Место хранения" Binding="{Binding Place}"  Width="0.4*" />
-                        <DataGridTextColumn Header="QR" Binding="{Binding Place}" Width="40" />
-                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*" />
+                        <DataGridTextColumn Header="ID" Binding="{Binding id_product}" Width="40"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding name}" Width="0.3*"/>
+                        <DataGridTextColumn Header="Категория" Binding="{Binding category}" Width="0.3*"/>
+                        <DataGridTextColumn Header="Производитель" Binding="{Binding maker}" Width="0.3*" />
+                        <DataGridTextColumn Header="Кол-во" Binding="{Binding count}" Width="0.2*" />
+                        <DataGridTextColumn Header="Место хранения" Binding="{Binding place}"  Width="0.4*" />
+                        <DataGridCheckBoxColumn Header="QR" Binding="{Binding Qr, Converter={StaticResource BooleanConverter}}" Width="40" />
+                        <DataGridTextColumn Header="Описание" Binding="{Binding description}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
