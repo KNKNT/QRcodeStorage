@@ -80,18 +80,25 @@ namespace QRcodeStorage.Pages
             name = tbProduct.Text;
             count = Convert.ToInt32(tbCount.Text);
 
-            description = string.IsNullOrEmpty(tbDescription.Text) ? 
-                null : tbDescription.Text;
+            try
+            {
+                description = string.IsNullOrEmpty(tbDescription.Text) ?
+                    null : tbDescription.Text;
 
-            place = string.IsNullOrEmpty(tbPlace.Text) ? 
-                null : tbPlace.Text;
+                place = string.IsNullOrEmpty(tbPlace.Text) ?
+                    null : tbPlace.Text;
 
-            idCategory = cbCategory.SelectedValue.Equals(0) ?
-                null : Convert.ToInt32(cbCategory.SelectedValue);
-                
-            idMaker = cbMakers.SelectedValue.Equals(0) ?
-                null : Convert.ToInt32(cbMakers.SelectedValue);
+                idCategory = cbCategory.SelectedValue.Equals(0) ?
+                    null : Convert.ToInt32(cbCategory.SelectedValue);
 
+                idMaker = cbMakers.SelectedValue.Equals(0) ?
+                    null : Convert.ToInt32(cbMakers.SelectedValue);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             Product product = new()
             {
