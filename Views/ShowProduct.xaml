@@ -9,6 +9,7 @@
       Title="ShowProduct">
     <Page.Resources>
         <local:BooleanConverter x:Key="BooleanConverter" />
+        <local:NullConverter x:Key="NullConverter" />
     </Page.Resources>
 
     <Border Padding="30,0,30,0" Background="{StaticResource Background}">
@@ -38,12 +39,12 @@
                     <Button 
                         Style="{StaticResource CancelButton}"
                         Content="Экспорт"
-                        Height="80"
+                        Height="40"
                         Width="150"/>
                     <Button 
                         Style="{StaticResource UpdateButton}"
                         Content="Обновить"
-                        Height="80"
+                        Height="40"
                         Width="150" Margin="15,0,0,0" Click="btnUpdate_Click"/>
                 </StackPanel>
             </Grid>
@@ -67,17 +68,17 @@
 
                         <StackPanel Margin="0,0,14,15">
                             <TextBlock Text="Название" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox FontSize="14" Height="40" VerticalContentAlignment="Center" />
+                            <TextBox x:Name="tbSearchName" FontSize="14" Height="40" VerticalContentAlignment="Center" TextChanged="tbSearchName_TextChanged" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="0,0,7,0">
                             <TextBlock Text="Категория" FontSize="14" FontWeight="Medium" Margin="0,0,0,5" />
-                            <ComboBox x:Name="cbCategory" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center"/>
+                            <ComboBox  x:Name="cbCategory" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbCategory_SelectionChanged"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Margin="7,0,0,0">
                             <TextBlock Text="QR-код" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <ComboBox FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center">
+                            <ComboBox x:Name="cbQrCode" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbQrCode_SelectionChanged">
                                 <ComboBoxItem Content="Все"/>
                                 <ComboBoxItem Content="С кодом"/>
                                 <ComboBoxItem Content="Без кода"/>
@@ -85,13 +86,14 @@
                         </StackPanel>
 
                         <Button 
-                            Content="Поиск" 
-                            Style="{StaticResource UpdateButton}" 
+                            x:Name="btnResetFilters"
+                            Content="Сброс" 
+                            Style="{StaticResource CancelButton}" 
                             Grid.Column="3" 
                             Height="40" 
-                            Width="200"
+                            Width="150"
                             Margin="14,0,0,15" 
-                            VerticalAlignment="Bottom"/>
+                            VerticalAlignment="Bottom" Click="btnResetFilters_Click"/>
                     </Grid>
 
 
@@ -114,12 +116,12 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding id_product}" Width="40"/>
                         <DataGridTextColumn Header="Название" Binding="{Binding name}" Width="0.3*"/>
-                        <DataGridTextColumn Header="Категория" Binding="{Binding category}" Width="0.3*"/>
-                        <DataGridTextColumn Header="Производитель" Binding="{Binding maker}" Width="0.3*" />
-                        <DataGridTextColumn Header="Кол-во" Binding="{Binding count}" Width="0.2*" />
-                        <DataGridTextColumn Header="Место хранения" Binding="{Binding place}"  Width="0.4*" />
+                        <DataGridTextColumn Header="Категория" Binding="{Binding category, Converter={StaticResource NullConverter}}" Width="0.3*"/>
+                        <DataGridTextColumn Header="Производитель" Binding="{Binding maker, Converter={StaticResource NullConverter}}" Width="0.3*" />
+                        <DataGridTextColumn Header="Кол-во" Binding="{Binding count, Converter={StaticResource NullConverter}}" Width="0.2*" />
+                        <DataGridTextColumn Header="Место хранения" Binding="{Binding place, Converter={StaticResource NullConverter}}"  Width="0.4*" />
                         <DataGridCheckBoxColumn Header="QR" Binding="{Binding Qr, Converter={StaticResource BooleanConverter}}" Width="50" />
-                        <DataGridTextColumn Header="Описание" Binding="{Binding description}" Width="*" />
+                        <DataGridTextColumn Header="Описание" Binding="{Binding description, Converter={StaticResource NullConverter}}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
