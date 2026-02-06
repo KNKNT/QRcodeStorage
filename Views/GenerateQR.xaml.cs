@@ -1,5 +1,7 @@
-﻿using System;
+﻿using QRcodeStorage.Services;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,12 @@ namespace QRcodeStorage.Pages
     /// </summary>
     public partial class GenerateQR : Page
     {
+        Loader loader = new();
         public GenerateQR()
         {
             InitializeComponent();
+            dgProducts.ItemsSource = loader.LoadDataTable("SELECT name, qr FROM ShowProducts");
         }
+
     }
 }

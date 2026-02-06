@@ -1,4 +1,5 @@
 ﻿using QRcodeStorage.Models;
+using QRcodeStorage.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace QRcodeStorage.Pages
     public partial class CreateProduct : Page
     {
         CreateProductModel createProduct = new();
+        Loader loader = new();
         Categories catigories = new();
         string name;
         int id, count;
@@ -39,12 +41,12 @@ namespace QRcodeStorage.Pages
         private void ClearData_Click(object sender, RoutedEventArgs e) => ClearData();
         private void LoadMakersComboBox()
         {
-            var makers = createProduct.LoadMakers().Select(m => (m.Id, m.Maker)).ToList();
+            var makers = loader.LoadMakers().Select(m => (m.Id, m.Maker)).ToList();
             catigories.LoadComboBoxes(cbMakers, makers);
         }
         private void LoadCategoriesComboBox()
         {
-            var categories = createProduct.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
+            var categories = loader.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
             catigories.LoadComboBoxes(cbCategory, categories);
         }
         private void ClearData()

@@ -3,13 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:QRcodeStorage.Pages"
+      xmlns:srv="clr-namespace:QRcodeStorage.Services"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1350"
       Title="ShowProduct">
     <Page.Resources>
-        <local:BooleanConverter x:Key="BooleanConverter" />
-        <local:NullConverter x:Key="NullConverter" />
+        <srv:BooleanConverter x:Key="BooleanConverter" />
+        <srv:NullConverter x:Key="NullConverter" />
     </Page.Resources>
 
     <Border Padding="30,0,30,0" Background="{StaticResource Background}">
