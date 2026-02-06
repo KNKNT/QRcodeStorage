@@ -5,17 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QRcodeStorage"
         mc:Ignorable="d"
+        MinHeight="800" MinWidth="1500"
         Height="800" Width="1500"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="CanResize">
-    <!--<WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="5"/>
-    </WindowChrome.WindowChrome>-->
 
-    <Grid Margin="8">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid>
         <Grid.Effect>
             <DropShadowEffect Direction="0" BlurRadius="8" Opacity="0.2" ShadowDepth="0"/>
         </Grid.Effect>
@@ -23,7 +25,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <Border Background="#34495E" MouseDown="Border_MouseDown">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button FontSize="20" Style="{StaticResource OtherButton}" Click="Button_Click_2">
