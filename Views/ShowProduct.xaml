@@ -73,12 +73,12 @@
 
                         <StackPanel Grid.Column="1" Margin="0,0,7,0">
                             <TextBlock Text="Категория" FontSize="14" FontWeight="Medium" Margin="0,0,0,5" />
-                            <ComboBox  x:Name="cbCategory" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbCategory_SelectionChanged"/>
+                            <ComboBox  x:Name="cbCategory" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Margin="7,0,0,0">
                             <TextBlock Text="QR-код" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <ComboBox x:Name="cbQrCode" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="cbQrCode_SelectionChanged">
+                            <ComboBox x:Name="cbQrCode" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" DropDownClosed="cbQrCode_DropDownClosed">
                                 <ComboBoxItem Content="Все"/>
                                 <ComboBoxItem Content="С кодом"/>
                                 <ComboBoxItem Content="Без кода"/>

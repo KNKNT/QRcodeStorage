@@ -12,14 +12,12 @@ namespace QRcodeStorage.Services
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            System.Convert.ToInt32(value);
-            return value;
+            return System.Convert.ToInt32(value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            System.Convert.ToBoolean(value);
-            return value;
+            return System.Convert.ToBoolean(value);
         }
     }
 }

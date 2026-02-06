@@ -23,8 +23,8 @@ namespace QRcodeStorage.Pages
             LoadTable();
         }
         private void btnUpdate_Click(object sender, RoutedEventArgs e) => LoadTable();
-        private void cbQrCode_SelectionChanged(object sender, SelectionChangedEventArgs e) => Search();
-        private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e) => Search();
+        private void cbCategory_DropDownClosed(object sender, EventArgs e) => Search();
+        private void cbQrCode_DropDownClosed(object sender, EventArgs e) => Search();
         private void tbSearchName_TextChanged(object sender, TextChangedEventArgs e) => Search();
         private void btnResetFilters_Click(object sender, RoutedEventArgs e)
         {
@@ -81,5 +81,6 @@ namespace QRcodeStorage.Pages
                 MessageBox.Show($"Ошибка при фильтрации: {ex.Message}");
             }
         }
+
     }
 }

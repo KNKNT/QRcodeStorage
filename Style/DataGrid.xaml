@@ -99,8 +99,8 @@
                             <Setter Property="Foreground" Value="{StaticResource MaterialDesignForeground}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter TargetName="CellBorder" Property="BorderBrush" Value="{StaticResource MaterialDesignPrimary}" />
-                            <Setter TargetName="CellBorder" Property="BorderThickness" Value="1" />
+                            <Setter TargetName="CellBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="CellBorder" Property="BorderThickness" Value="0" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.56" />
@@ -204,6 +204,8 @@
     <!-- Основной стиль DataGrid -->
     <Style x:Key="MaterialDesignDataGrid" TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="{StaticResource MaterialDesignBackground}" />
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
         <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignDivider}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontSize" Value="13" />

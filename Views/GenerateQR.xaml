@@ -31,12 +31,15 @@
 
                 <StackPanel Grid.Row="1">
                     <Border Background="White" Height="60" CornerRadius="5,5,0,0">
-                        <CheckBox  Content="Товары без QR-кода" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                        <StackPanel Background="Transparent" VerticalAlignment="Center" Orientation="Horizontal" Margin="15,0,0,0" PreviewMouseLeftButtonUp="StackPanel_PreviewMouseLeftButtonUp">
+                            <CheckBox x:Name="cbShowQr" Margin="0,6,0,0" Checked="cbShowQr_Checked" Unchecked="cbShowQr_Unchecked"/>
+                            <TextBlock Text="Товары без QR-кода" FontSize="18" VerticalAlignment="Center" Margin="10,0,0,0" />
+                        </StackPanel>
                     </Border>
-                    <DataGrid x:Name="dgProducts" Style="{StaticResource MaterialDesignDataGrid}" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="dgProducts" Style="{StaticResource MaterialDesignDataGrid}" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgProducts_SelectionChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Товар" Binding="{Binding name}" Width="0.3*"/>
-                            <DataGridCheckBoxColumn Header="QR" Binding="{Binding qr, Converter={StaticResource BooleanConverter}}" Width="50" />
+                            <DataGridCheckBoxColumn Header="QR" Binding="{Binding Qr, Converter={StaticResource BooleanConverter}}" Width="50" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
@@ -63,7 +66,7 @@
 
                     <StackPanel Grid.Row="2" Margin="30,0,30,15">
                         <TextBlock Text="Товар:" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                        <TextBlock Text="Не выбран" FontSize="14" Margin="0,0,0,20"/>
+                        <TextBlock x:Name="tblProduct" Text="Не выбран" FontSize="14" Margin="0,0,0,20"/>
                         <Expander Header="Настройки QR-кода" FontSize="14" IsExpanded="True">
                             <StackPanel Margin="0,10,0,0">
                                 <TextBlock Text="Размер QR-кода" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
