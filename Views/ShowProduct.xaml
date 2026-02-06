@@ -118,7 +118,7 @@
                         <DataGridTextColumn Header="Производитель" Binding="{Binding maker}" Width="0.3*" />
                         <DataGridTextColumn Header="Кол-во" Binding="{Binding count}" Width="0.2*" />
                         <DataGridTextColumn Header="Место хранения" Binding="{Binding place}"  Width="0.4*" />
-                        <DataGridCheckBoxColumn Header="QR" Binding="{Binding Qr, Converter={StaticResource BooleanConverter}}" Width="40" />
+                        <DataGridCheckBoxColumn Header="QR" Binding="{Binding Qr, Converter={StaticResource BooleanConverter}}" Width="50" />
                         <DataGridTextColumn Header="Описание" Binding="{Binding description}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>

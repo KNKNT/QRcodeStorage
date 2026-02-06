@@ -24,8 +24,11 @@ namespace QRcodeStorage.Pages
     {
         CreateProductModel createProduct = new();
         Categories catigories = new();
-        string? name, place, description;
-        int? id, count, idCategory, idMaker;
+        string name;
+        int id, count;
+
+        string? place, description;
+        int? idCategory, idMaker;
         public CreateProduct()
         {
             InitializeComponent();
@@ -55,11 +58,14 @@ namespace QRcodeStorage.Pages
             cbCategory.SelectedIndex = 0;
             cbMakers.Text = string.Empty;
             cbMakers.SelectedIndex = 0;
+
+            tblCountError.Visibility = Visibility.Collapsed;
+            tblProductError.Visibility = Visibility.Collapsed;
         }
         private void tbCount_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             foreach (char c in e.Text)
-                if (!char.IsDigit(c))
+                if (!char.IsDigit(c) || char.IsControl(c))
                 {
                     e.Handled = true;
                     return;
@@ -69,12 +75,23 @@ namespace QRcodeStorage.Pages
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
             bool isProductValid = !string.IsNullOrEmpty(tbProduct.Text);
-            bool isCountValid = !string.IsNullOrEmpty(tbCount.Text);
-
             tblProductError.Visibility = isProductValid ? Visibility.Collapsed : Visibility.Visible;
-            tblCountError.Visibility = isCountValid ? Visibility.Collapsed : Visibility.Visible;
 
-            if (!isProductValid || !isCountValid)
+            bool isCountValid = true;
+            if (!int.TryParse(tbCount.Text, out count))
+            {
+                tblCountError.Text = "Строка должна быть целым числом";
+                tblCountError.Visibility = Visibility.Visible;
+                isCountValid = false;
+            }
+            if (string.IsNullOrEmpty(tbCount.Text))
+            {
+                tblCountError.Text = "Поле не должно быть пустым";
+                tblCountError.Visibility = Visibility.Visible;
+                isCountValid = false;
+            }
+
+            if (!isCountValid || !isProductValid)
                 return;
 
             name = tbProduct.Text;
