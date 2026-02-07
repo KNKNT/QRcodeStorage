@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QRcodeStorage.Pages;
 
+
 namespace QRcodeStorage
 {
     /// <summary>

@@ -19,7 +19,7 @@
 
     <Grid>
         <Grid.Effect>
-            <DropShadowEffect Direction="0" BlurRadius="8" Opacity="0.2" ShadowDepth="0"/>
+            <DropShadowEffect Direction="0" BlurRadius="20" Opacity="1" ShadowDepth="0"/>
         </Grid.Effect>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
