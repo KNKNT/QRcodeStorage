@@ -1,20 +1,8 @@
 ﻿using QRcodeStorage.Models;
 using QRcodeStorage.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace QRcodeStorage.Pages
 {
@@ -27,7 +15,7 @@ namespace QRcodeStorage.Pages
         Loader loader = new();
         Categories catigories = new();
         string name;
-        int id, count;
+        int count;
 
         string? place, description;
         int? idCategory, idMaker;

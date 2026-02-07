@@ -68,7 +68,8 @@ namespace QRcodeStorage.Pages
                     bool hasQrCode = cbQrCode.SelectedIndex switch
                     {
                         1 => true,
-                        2 => false
+                        2 => false,
+                        _ => false,
                     };
                     filters.Add($"[Qr] = {hasQrCode}");
                 }
