@@ -1,5 +1,6 @@
 ﻿using QRcodeStorage.Models;
 using QRcodeStorage.Services;
+using QRcodeStorage.Views;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,15 +15,13 @@ using ZXing.Windows.Compatibility;
 
 namespace QRcodeStorage.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для GenerateQR.xaml
-    /// </summary>
     public partial class GenerateQR : Page
     {
         Loader loader = new();
+        Dictionary<string, int> productQuantities = new();
         DataView dataView;
-        int size = 100;
-        int columns = 5;
+        int size = 100, columns = 5, rows = 8, maxCount = 40;
+        private int totalCodesCount = 0;
 
         private void cbShowQr_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) => cbShowQr.IsChecked = !cbShowQr.IsChecked;
         private void cbShowQr_Checked(object sender, RoutedEventArgs e) => dataView.RowFilter = "[Qr] = '0'";
@@ -39,6 +38,80 @@ namespace QRcodeStorage.Pages
         private void UpdateQr()
         {
             qrUniformGrid.Children.Clear();
+            stCount.Children.Clear();
+            totalCodesCount = 0;
+
+
+            foreach (var selectedItem in dgProducts.SelectedItems)
+            {
+                if (selectedItem is DataRowView selectedRow)
+                {
+                    var productName = selectedRow[1].ToString();
+                    var counter = new ucCountOfCodes(productName);
+
+                    counter.CountChanged += (sender, count) =>
+                    {
+                        var control = sender as ucCountOfCodes;
+                        if (control != null)
+                        {
+                            int oldCount = productQuantities.ContainsKey(control.ProductName)
+                                ? productQuantities[control.ProductName]
+                                : 0;
+
+                            int delta = count - oldCount;
+
+                            if (totalCodesCount + delta <= maxCount || delta < 0)
+                            {
+                                totalCodesCount += delta;
+                                productQuantities[control.ProductName] = count;
+                                RecreateQrCodes();
+                                UpdateCountersState();
+                            }
+                            else
+                            {
+                                control.Count = oldCount;
+                            }
+                        }
+                    };
+
+                    stCount.Children.Add(counter);
+                    productQuantities[productName] = counter.Count;
+                    totalCodesCount += counter.Count;
+                }
+            }
+
+            UpdateCountersState();
+            RecreateQrCodes();
+        }
+
+        private void UpdateCountersState()
+        {
+            bool maxReached = totalCodesCount >= maxCount;
+
+            foreach (var child in stCount.Children)
+            {
+                if (child is ucCountOfCodes counter)
+                {
+                    counter.SetMaxReached(maxReached);
+                }
+            }
+            UpdateLimitInfo();
+        }
+
+        private void UpdateLimitInfo()
+        {
+            tbLimitInfo.Text = $" {totalCodesCount}/{maxCount}";
+            tbLimitInfo.Foreground = totalCodesCount >= maxCount ? Brushes.Red : Brushes.Black;
+
+            if (totalCodesCount >= maxCount)
+            {
+                tbLimitInfo.Text += " (Достигнут лимит!)";
+            }
+        }
+
+        private void RecreateQrCodes()
+        {
+            qrUniformGrid.Children.Clear();
 
             foreach (var selectedItem in dgProducts.SelectedItems)
             {
@@ -50,58 +123,70 @@ namespace QRcodeStorage.Pages
                         Name = selectedRow[1].ToString(),
                     };
 
-                    var stackPanel = new StackPanel()
+                    int quantity = 1;
+                    if (productQuantities.ContainsKey(product.Name))
                     {
-                        Margin = new Thickness(10),
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Top
-                    };
+                        quantity = productQuantities[product.Name];
+                    }
 
-                    var border = new Border();
-                    
-
-                    string qrCode = $"{product.Id} | {product.Name}";
-                    var qrImage = GenerateQRCode(qrCode);
-
-                    var image = new System.Windows.Controls.Image()
+                    for (int i = 0; i < quantity; i++)
                     {
-                        Source = qrImage,
-                        Stretch = Stretch.UniformToFill,
-                        Width = size,
-                        Height = size
-                    };
+                        // ... код создания QR-кода остается прежним ...
+                        var stackPanel = new StackPanel()
+                        {
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Top
+                        };
 
-                    var textBlock = new TextBlock()
-                    {
-                        Text = product.Name,
-                        TextAlignment = TextAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        MaxWidth = 160,
-                        TextWrapping = TextWrapping.Wrap,
-                        Margin = new Thickness(0, 1, 0, 0),
-                        FontWeight = FontWeights.Medium
-                    };
+                        var border = new Border()
+                        {
+                            Margin = new Thickness(10, 0, 10, 0),
+                        };
 
-                    border.Child = image;
-                    stackPanel.Children.Add(border);
-                    stackPanel.Children.Add(textBlock);
+                        string qrCode = $"{product.Id} | {product.Name}";
+                        var qrImage = GenerateQRCode(qrCode);
 
-                    qrUniformGrid.Children.Add(stackPanel);
+                        var image = new System.Windows.Controls.Image()
+                        {
+                            Source = qrImage,
+                            Stretch = Stretch.UniformToFill,
+                            Width = size,
+                            Height = size
+                        };
+
+                        var textBlock = new TextBlock()
+                        {
+                            Text = quantity > 1 ? $"{product.Name} ({i + 1}/{quantity})" : product.Name,
+                            TextAlignment = TextAlignment.Center,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Top,
+                            MaxWidth = 160,
+                            TextWrapping = TextWrapping.Wrap,
+                            Margin = new Thickness(0, -10, 0, 0),
+                            FontWeight = FontWeights.Medium
+                        };
+
+                        border.Child = image;
+                        stackPanel.Children.Add(border);
+                        stackPanel.Children.Add(textBlock);
+                        qrUniformGrid.Children.Add(stackPanel);
+                    }
                 }
             }
         }
 
         private void cbSize_DropDownClosed(object sender, EventArgs e)
         {
-            (size, columns) = cbSize.SelectedIndex switch
+            (size, columns, rows, maxCount) = cbSize.SelectedIndex switch
             {
-                0 => (100, 5),
-                1 => (180, 3),
-                2 => (270, 2), 
-                _ => (100, 5)
+                0 => (100, 5, 8, 40),
+                1 => (180, 3, 4, 12),
+                2 => (270, 2, 3, 6),
+                _ => (100, 5, 8, 40)
             };
             qrUniformGrid.Columns = columns;
+            qrUniformGrid.Rows = rows;
+            totalCodesCount = 0; 
             UpdateQr();
         }
         private WriteableBitmap GenerateQRCode(string text)

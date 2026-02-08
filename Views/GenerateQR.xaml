@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:v="clr-namespace:QRcodeStorage.Views"
       xmlns:srv="clr-namespace:QRcodeStorage.Services"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1350"
@@ -48,43 +49,56 @@
             </Grid>
 
             <Border Grid.Column="1" Margin="30,50,0,30" Background="White" CornerRadius="5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition Height="*"  />
-                            <RowDefinition Height="200"/>
-                        </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"  />
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
-                        <TextBlock Text="Предпросмотр QR-кода" Foreground="Black" Margin="30,30,0,0" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock Text="Предпросмотр QR-кода" Foreground="Black" Margin="30,30,0,0" FontSize="24" FontWeight="Bold"/>
 
-                        <Viewbox  Grid.Row="1"  Margin="60,0,60,0" VerticalAlignment="Top">
+                    <Viewbox  Grid.Row="1"  Margin="60,10,60,10" VerticalAlignment="Top">
 
-                            <Border  Width="595" Height="842" Background="White" Margin="20" x:Name="qrContainerBorder">
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0" Opacity="1" Direction="0" Color="#FFB7B7B7"/>
-                                </Border.Effect>
-                                <UniformGrid x:Name="qrUniformGrid" 
+                        <Border ClipToBounds="True" Width="595" Margin="15" Height="842" Background="White" x:Name="qrContainerBorder">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black"
+                                                  Opacity="1"
+                                                  BlurRadius="5"
+                                                  Direction="100"
+                                                  ShadowDepth="0" />
+                            </Border.Effect>
+                            <UniformGrid x:Name="qrUniformGrid" 
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
-                                       Columns="5"/>
-                            </Border>
-                        </Viewbox>
+                                       Columns="5"
+                                       Rows="8"/>
+                        </Border>
+                    </Viewbox>
+                    
 
 
-                        <StackPanel Grid.Row="2" Margin="30,0,30,15">
-                            <Expander Header="Настройки QR-кода" FontSize="14" IsExpanded="True">
-                                <StackPanel Margin="0,10,0,0">
-                                    <TextBlock Text="Размер QR-кода" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                                    <ComboBox x:Name="cbSize" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" DropDownClosed="cbSize_DropDownClosed" >
-                                        <ComboBoxItem Content="Маленький (90х90)"/>
-                                        <ComboBoxItem Content="Средний (180х180)"/>
-                                        <ComboBoxItem Content="Большой (270х270)"/>
-                                    </ComboBox>
-                                </StackPanel>
-                            </Expander>
-                        </StackPanel>
-
-                    </Grid>
+                    <StackPanel Grid.Row="2" Margin="30,0,30,15">
+                        <Expander Header="Настройки QR-кода" FontSize="14" IsExpanded="True">
+                            <StackPanel Margin="0,10,0,0">
+                                <TextBlock Text="Размер QR-кода" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                                <ComboBox x:Name="cbSize" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" DropDownClosed="cbSize_DropDownClosed">
+                                    <ComboBoxItem Content="Маленький (90х90)"/>
+                                    <ComboBoxItem Content="Средний (180х180)"/>
+                                    <ComboBoxItem Content="Большой (270х270)"/>
+                                </ComboBox>
+                                <TextBlock FontSize="14" FontWeight="Medium" Margin="0,10,0,5">
+                                    <Run Text="Количество кодов   "/>
+                                    <Run Name="tbLimitInfo" Text=""/>
+                                </TextBlock>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="auto" MaxHeight="300">
+                                    <StackPanel x:Name="stCount"/>
+                                </ScrollViewer>
+                            </StackPanel>
+                        </Expander>
+                        
+                    </StackPanel>
+                </Grid>
             </Border>
         </Grid>
     </Border>
