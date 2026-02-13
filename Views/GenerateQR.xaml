@@ -97,7 +97,7 @@
 
                     <Button x:Name="btnExport" Content="Экспорт" Style="{StaticResource UpdateButton}" 
                             Grid.Row="3" HorizontalAlignment="Right" 
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Center" IsEnabled="False"
                             Height="40" Width="150" Margin="30,0,30,0" Click="btnExport_Click"/>
                 </Grid>
             </Border>

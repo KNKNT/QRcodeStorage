@@ -22,8 +22,11 @@ namespace QRcodeStorage.Pages
         Loader loader = new();
         Dictionary<string, int> productQuantities = new();
         DataView dataView;
+        Product product = new();
         int size = 100, columns = 5, rows = 8, maxCount = 40;
-        private int totalCodesCount = 0;
+        int totalCodesCount = 0;
+        List<int> idProducts = new();
+
 
         private void cbShowQr_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) => cbShowQr.IsChecked = !cbShowQr.IsChecked;
         private void cbShowQr_Checked(object sender, RoutedEventArgs e) => dataView.RowFilter = "[Qr] = '0'";
@@ -33,13 +36,15 @@ namespace QRcodeStorage.Pages
         public GenerateQR()
         {
             InitializeComponent();
+            UpdateTable();
+        }
+        private void UpdateTable()
+        {
             dataView = loader.LoadDataTable("SELECT id_product, name, maker, qr FROM ShowProducts");
             dgProducts.ItemsSource = dataView;
         }
-
         private void UpdateQr()
         {
-
             qrUniformGrid.Children.Clear();
             stCount.Children.Clear();
             totalCodesCount = 0;
@@ -107,21 +112,22 @@ namespace QRcodeStorage.Pages
             tbLimitInfo.Foreground = totalCodesCount >= maxCount ? Brushes.Red : Brushes.Black;
 
             btnExport.IsEnabled = totalCodesCount > maxCount ? false : true;
+            btnExport.IsEnabled = totalCodesCount == 0 ? false : true;
 
             if (totalCodesCount >= maxCount)
                 tbLimitInfo.Text += " (Достигнут лимит!)";
-
         }
 
         private void RecreateQrCodes()
         {
             qrUniformGrid.Children.Clear();
+            idProducts.Clear();
 
             foreach (var selectedItem in dgProducts.SelectedItems)
             {
                 if (selectedItem is DataRowView selectedRow)
                 {
-                    var product = new Product()
+                    product = new Product()
                     {
                         Id = Convert.ToInt32(selectedRow[0]),
                         Name = selectedRow[1].ToString(),
@@ -168,6 +174,7 @@ namespace QRcodeStorage.Pages
                             FontWeight = FontWeights.Medium
                         };
 
+                        idProducts.Add(product.Id);
                         border.Child = image;
                         stackPanel.Children.Add(border);
                         stackPanel.Children.Add(textBlock);
@@ -245,6 +252,9 @@ namespace QRcodeStorage.Pages
                         encoder.Frames.Add(BitmapFrame.Create(renderTarget));
                         encoder.Save(fs);
                     }
+
+                    product.UpdateStatus(idProducts);
+                    UpdateTable();
 
                     MessageBox.Show("Файл успешно сохранён!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
