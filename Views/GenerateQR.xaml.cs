@@ -1,7 +1,9 @@
-﻿using QRcodeStorage.Models;
+﻿using Microsoft.Win32;
+using QRcodeStorage.Models;
 using QRcodeStorage.Services;
 using QRcodeStorage.Views;
 using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -37,6 +39,7 @@ namespace QRcodeStorage.Pages
 
         private void UpdateQr()
         {
+
             qrUniformGrid.Children.Clear();
             stCount.Children.Clear();
             totalCodesCount = 0;
@@ -103,10 +106,11 @@ namespace QRcodeStorage.Pages
             tbLimitInfo.Text = $" {totalCodesCount}/{maxCount}";
             tbLimitInfo.Foreground = totalCodesCount >= maxCount ? Brushes.Red : Brushes.Black;
 
+            btnExport.IsEnabled = totalCodesCount > maxCount ? false : true;
+
             if (totalCodesCount >= maxCount)
-            {
                 tbLimitInfo.Text += " (Достигнут лимит!)";
-            }
+
         }
 
         private void RecreateQrCodes()
@@ -131,7 +135,6 @@ namespace QRcodeStorage.Pages
 
                     for (int i = 0; i < quantity; i++)
                     {
-                        // ... код создания QR-кода остается прежним ...
                         var stackPanel = new StackPanel()
                         {
                             HorizontalAlignment = HorizontalAlignment.Center,
@@ -143,8 +146,7 @@ namespace QRcodeStorage.Pages
                             Margin = new Thickness(10, 0, 10, 0),
                         };
 
-                        string qrCode = $"{product.Id} | {product.Name}";
-                        var qrImage = GenerateQRCode(qrCode);
+                        var qrImage = GenerateQRCode($"{product.Id}");
 
                         var image = new System.Windows.Controls.Image()
                         {
@@ -160,8 +162,8 @@ namespace QRcodeStorage.Pages
                             TextAlignment = TextAlignment.Center,
                             HorizontalAlignment = HorizontalAlignment.Center,
                             VerticalAlignment = VerticalAlignment.Top,
-                            MaxWidth = 160,
-                            TextWrapping = TextWrapping.Wrap,
+                            MaxWidth = size - 10,
+                            TextTrimming = TextTrimming.CharacterEllipsis,
                             Margin = new Thickness(0, -10, 0, 0),
                             FontWeight = FontWeights.Medium
                         };
@@ -186,7 +188,7 @@ namespace QRcodeStorage.Pages
             };
             qrUniformGrid.Columns = columns;
             qrUniformGrid.Rows = rows;
-            totalCodesCount = 0; 
+            totalCodesCount = 0;
             UpdateQr();
         }
         private WriteableBitmap GenerateQRCode(string text)
@@ -206,6 +208,58 @@ namespace QRcodeStorage.Pages
             };
 
             return barcodeWriter.Write(text);
+        }
+
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.FileName = "Qr";                 
+            saveFileDialog.DefaultExt = ".png";                
+            saveFileDialog.Filter = "PNG images (*.png)|*.png"; 
+            saveFileDialog.Title = "Сохранить изображение в формате PNG";
+
+            bool? result = saveFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                string filePath = saveFileDialog.FileName;
+
+                Border borderToExport = qrContainerBorder;
+                borderToExport.BorderBrush = null;
+                borderToExport.UpdateLayout();
+
+                int width = (int)borderToExport.ActualWidth;
+                int height = (int)borderToExport.ActualHeight;
+                int dpi = 96;
+
+                RenderTargetBitmap renderTarget = new RenderTargetBitmap(
+                    width, height, dpi, dpi, PixelFormats.Pbgra32);
+                renderTarget.Render(borderToExport);
+
+                try
+                {
+                    using (FileStream fs = new FileStream(filePath, FileMode.Create))
+                    {
+                        PngBitmapEncoder encoder = new PngBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(renderTarget));
+                        encoder.Save(fs);
+                    }
+
+                    MessageBox.Show("Файл успешно сохранён!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при сохранении файла:\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                borderToExport.BorderBrush = Brushes.Gray;
+                borderToExport.UpdateLayout();
+            }
+            else
+            {
+                MessageBox.Show("Сохранение отменено.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

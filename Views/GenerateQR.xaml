@@ -54,28 +54,24 @@
                         <RowDefinition Height="70"/>
                         <RowDefinition Height="*"  />
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Предпросмотр QR-кода" Foreground="Black" Margin="30,30,0,0" FontSize="24" FontWeight="Bold"/>
 
-                    <Viewbox  Grid.Row="1"  Margin="60,10,60,10" VerticalAlignment="Top">
-
-                        <Border ClipToBounds="True" Width="595" Margin="15" Height="842" Background="White" x:Name="qrContainerBorder">
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black"
-                                                  Opacity="1"
-                                                  BlurRadius="5"
-                                                  Direction="100"
-                                                  ShadowDepth="0" />
-                            </Border.Effect>
-                            <UniformGrid x:Name="qrUniformGrid" 
+                    <Border Grid.Row="1" Margin="15">
+                        <Viewbox Margin="60,10,60,10" VerticalAlignment="Top">
+                            <Border ClipToBounds="True" Width="595" Height="842" Background="White" x:Name="qrContainerBorder" 
+                                    BorderBrush="Gray" BorderThickness="2">
+                                <UniformGrid x:Name="qrUniformGrid" 
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Columns="5"
                                        Rows="8"/>
-                        </Border>
-                    </Viewbox>
-                    
+                            </Border>
+                        </Viewbox>
+                    </Border>
+
 
 
                     <StackPanel Grid.Row="2" Margin="30,0,30,15">
@@ -96,8 +92,13 @@
                                 </ScrollViewer>
                             </StackPanel>
                         </Expander>
-                        
+
                     </StackPanel>
+
+                    <Button x:Name="btnExport" Content="Экспорт" Style="{StaticResource UpdateButton}" 
+                            Grid.Row="3" HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            Height="40" Width="150" Margin="30,0,30,0" Click="btnExport_Click"/>
                 </Grid>
             </Border>
         </Grid>

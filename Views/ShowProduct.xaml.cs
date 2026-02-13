@@ -31,6 +31,7 @@ namespace QRcodeStorage.Pages
             tbSearchName.Clear();
             cbCategory.SelectedIndex = 0;   
             cbQrCode.SelectedIndex = 0;
+            dataView.RowFilter = null;
         }
 
         private void LoadTable()
