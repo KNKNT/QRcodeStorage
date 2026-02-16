@@ -4,9 +4,6 @@ using QRcodeStorage.Pages;
 
 namespace QRcodeStorage
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private ScanQR scanQRPage;
@@ -51,7 +48,7 @@ namespace QRcodeStorage
                 await scanQRPage.StopCameraAsync();
 
             if (pageType == typeof(ScanQR))
-                NavigationFrame.Content = new ScanQR(); 
+                NavigationFrame.Content = new ScanQR();
             else
                 NavigationFrame.Content = Activator.CreateInstance(pageType);
         }

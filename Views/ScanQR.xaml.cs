@@ -14,7 +14,7 @@ namespace QRcodeStorage.Pages
         private VideoCapture capture;
         private DispatcherTimer timer;
         private bool isCameraReady = false;
-        private bool isActive = true;
+        private bool isScanningEnabled = true;
 
         public ScanQR()
         {
@@ -28,13 +28,11 @@ namespace QRcodeStorage.Pages
 
         private async void ScanQR_Loaded(object sender, RoutedEventArgs e)
         {
-            isActive = true;
             await InitializeCameraAsync();
         }
 
         private async void ScanQR_Unloaded(object sender, RoutedEventArgs e)
         {
-            isActive = false;
             await StopCameraAsync();
         }
 
@@ -72,16 +70,18 @@ namespace QRcodeStorage.Pages
                     barcodeReader = new BarcodeReader();
 
                     timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromMilliseconds(30);
+                    timer.Interval = TimeSpan.FromMilliseconds(60);
                     timer.Tick += Timer_Tick;
                     timer.Start();
 
                     ShowLoading(false);
+                    brCameraTip.Visibility = Visibility.Visible;
+
                 }
                 else
                 {
                     LoadingText.Text = "Не удалось открыть камеру";
-                    brCameraTip.Visibility = Visibility.Hidden;
+                    brCameraTip.Visibility = Visibility.Collapsed;
                     LoadingSpinner.Visibility = Visibility.Collapsed;
                 }
             });
@@ -120,7 +120,8 @@ namespace QRcodeStorage.Pages
                     if (!frame.Empty())
                     {
                         imgCamera.Source = frame.ToBitmapSource();
-                        ScanQRCode(frame);
+                        if (isScanningEnabled)
+                            ScanQRCode(frame);
                     }
                 }
             }
@@ -133,13 +134,17 @@ namespace QRcodeStorage.Pages
                 var result = barcodeReader.Decode(bitmap);
                 if (result != null)
                 {
+                    isScanningEnabled = false;
+
                     Dispatcher.Invoke(() =>
                     {
                         MessageBox.Show($"Найден QR-код: {result.Text}");
+                        isScanningEnabled = true;
                     });
                 }
             }
         }
+
 
         private void ShowLoading(bool show)
         {
