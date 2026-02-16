@@ -12,11 +12,11 @@
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="CanResize">
-
+    
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
-
+    
     <Grid>
         <Grid.Effect>
             <DropShadowEffect Direction="0" BlurRadius="20" Opacity="1" ShadowDepth="0"/>

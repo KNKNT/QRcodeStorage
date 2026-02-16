@@ -1,15 +1,6 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using QRcodeStorage.Pages;
-
 
 namespace QRcodeStorage
 {
@@ -18,6 +9,9 @@ namespace QRcodeStorage
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ScanQR scanQRPage;
+        private Type currentPageType;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,21 +29,31 @@ namespace QRcodeStorage
 
         private void ShowProducts_Checked(object sender, RoutedEventArgs e)
         {
-            NavigationFrame.Content = new ShowProduct();
+            NavigateToPage(typeof(ShowProduct));
         }
 
         private void CreateProducts_Checked(object sender, RoutedEventArgs e)
         {
-            NavigationFrame.Content = new CreateProduct();
+            NavigateToPage(typeof(CreateProduct));
         }
 
         private void GenerateQR_Checked(object sender, RoutedEventArgs e)
         {
-            NavigationFrame.Content = new GenerateQR();
+            NavigateToPage(typeof(GenerateQR));
         }
         private void ScanQR_Checked(object sender, RoutedEventArgs e)
         {
-            NavigationFrame.Content = new ScanQR();
+            NavigateToPage(typeof(ScanQR));
+        }
+        private async void NavigateToPage(Type pageType)
+        {
+            if (currentPageType == typeof(ScanQR))
+                await scanQRPage.StopCameraAsync();
+
+            if (pageType == typeof(ScanQR))
+                NavigationFrame.Content = new ScanQR(); 
+            else
+                NavigationFrame.Content = Activator.CreateInstance(pageType);
         }
     }
 }
