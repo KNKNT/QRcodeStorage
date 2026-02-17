@@ -5,11 +5,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using ZXing.Windows.Compatibility;
+using QRcodeStorage.Services;
+using System.Data;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace QRcodeStorage.Pages
 {
     public partial class ScanQR : Page
     {
+        private Loader loader = new();
         private BarcodeReader barcodeReader;
         private VideoCapture capture;
         private DispatcherTimer timer;
@@ -132,19 +136,28 @@ namespace QRcodeStorage.Pages
             using (var bitmap = frame.ToBitmap())
             {
                 var result = barcodeReader.Decode(bitmap);
+
                 if (result != null)
                 {
-                    isScanningEnabled = false;
+                    (bool qrExist, DataView dataView) = loader.CheckAndLoadProduct(result.ToString());
 
-                    Dispatcher.Invoke(() =>
+                    if (qrExist)
                     {
+                        isScanningEnabled = false;
+
+                        Console.Beep(820, 300);
                         MessageBox.Show($"Найден QR-код: {result.Text}");
                         isScanningEnabled = true;
-                    });
+                        qrExist = false;
+                    }
+                    else
+                    {
+                        Console.Beep(250, 300);
+                        qrExist = false;
+                    }
                 }
             }
         }
-
 
         private void ShowLoading(bool show)
         {

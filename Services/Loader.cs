@@ -25,6 +25,31 @@ namespace QRcodeStorage.Services
             }
             return dataTable.DefaultView;
         }
+
+        public (bool, DataView) CheckAndLoadProduct(string id)
+        {
+            bool a;
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var command = new MySqlCommand("SELECT name, category, maker, count, place, description " +
+                    "FROM showproducts where id_product = @id", connection);
+
+                command.Parameters.AddWithValue("@id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    a = reader.HasRows;
+                    if(a)
+                    {
+                        dataTable.Load(reader);
+                    }
+                }
+            }
+            return (a ,dataTable.DefaultView);
+        }
+
         public List<Categories> LoadCategories()
         {
             var categories = new List<Categories>();

@@ -109,7 +109,7 @@
                                     </StackPanel>
                                 </Border>
 
-                                <Border x:Name="brCameraTip" Visibility="Collapsed" Background="#4C5A83C4" 
+                                <Border x:Name="brCameraTip" Visibility="Collapsed" Background="#665A83C4" 
                                     Margin="50" Height="auto"
                                     CornerRadius="5"
                                     VerticalAlignment="Bottom">
