@@ -10,6 +10,7 @@
     <SolidColorBrush x:Key="DefaultForeground" Color="#9badbf"/>
     
     <!--SysBottons-->
+    <SolidColorBrush x:Key="Accept" Color="#41CC74"/>
     <SolidColorBrush x:Key="Exit" Color="#CE636B"/>
     <SolidColorBrush x:Key="Other" Color="#435d78"/>
 

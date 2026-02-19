@@ -256,11 +256,11 @@ namespace QRcodeStorage.Pages
                     product.UpdateStatus(idProducts);
                     UpdateTable();
 
-                    MessageBox.Show("Файл успешно сохранён!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Notification.Show(true, "Успех", $"{filePath} сохранён");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при сохранении файла:\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Notification.Show(false, "Ошибка", $"Ошибка при сохранении файла:\n{ex.Message}");
                 }
 
                 borderToExport.BorderBrush = Brushes.Gray;
@@ -268,7 +268,7 @@ namespace QRcodeStorage.Pages
             }
             else
             {
-                MessageBox.Show("Сохранение отменено.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                Notification.Show(false, "Сохранение отменено", "");
             }
         }
     }

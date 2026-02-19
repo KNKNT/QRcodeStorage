@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using QRcodeStorage.Pages;
+using QRcodeStorage.Views;
 
 namespace QRcodeStorage
 {

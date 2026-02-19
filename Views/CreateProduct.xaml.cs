@@ -1,5 +1,6 @@
 ﻿using QRcodeStorage.Models;
 using QRcodeStorage.Services;
+using QRcodeStorage.Views;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -103,7 +104,7 @@ namespace QRcodeStorage.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Notification.Show(true, "Ошибка", ex.Message);
                 return;
             }
 

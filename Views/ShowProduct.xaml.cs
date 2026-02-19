@@ -1,5 +1,6 @@
 ﻿using QRcodeStorage.Models;
 using QRcodeStorage.Services;
+using QRcodeStorage.Views;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -80,7 +81,7 @@ namespace QRcodeStorage.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при фильтрации: {ex.Message}");
+                Notification.Show(false, "Ошибка при фильтрации", ex.Message);
             }
         }
 

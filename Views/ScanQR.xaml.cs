@@ -1,13 +1,17 @@
 ﻿using OpenCvSharp;
-using OpenCvSharp.WpfExtensions;
 using OpenCvSharp.Extensions;
+using OpenCvSharp.WpfExtensions;
+using QRcodeStorage.Services;
+using QRcodeStorage.Views;
+using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Drawing;
 using System.Windows.Threading;
 using ZXing.Windows.Compatibility;
-using QRcodeStorage.Services;
-using System.Data;
-using Microsoft.Toolkit.Uwp.Notifications;
+using Microsoft.Win32;
+using QRcodeStorage.Views.UserControls;
 
 namespace QRcodeStorage.Pages
 {
@@ -23,8 +27,9 @@ namespace QRcodeStorage.Pages
         public ScanQR()
         {
             InitializeComponent();
+
             ShowLoading(true);
-            InitializeCameraAsync();
+            rbCamera.IsChecked = true;
 
             this.Loaded += ScanQR_Loaded;
             this.Unloaded += ScanQR_Unloaded;
@@ -62,7 +67,7 @@ namespace QRcodeStorage.Pages
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка инициализации камеры: {ex.Message}");
+                    Notification.Show(false, "Ой", $"Ошибка инициализации камеры: {ex.Message}");
                     isCameraReady = false;
                 }
             });
@@ -109,7 +114,7 @@ namespace QRcodeStorage.Pages
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка остановки камеры: {ex.Message}");
+                    Notification.Show(false, "Ой", $"Ошибка остановки камеры: {ex.Message}");
                 }
             });
         }
@@ -143,26 +148,93 @@ namespace QRcodeStorage.Pages
 
                     if (qrExist)
                     {
-                        isScanningEnabled = false;
-
                         Console.Beep(820, 300);
-                        MessageBox.Show($"Найден QR-код: {result.Text}");
-                        isScanningEnabled = true;
-                        qrExist = false;
+                        Notification.Show(true, "Найден QR-код", $"Обнаружен '{result.Text}'");
+                        Coldown();
                     }
                     else
                     {
                         Console.Beep(250, 300);
-                        qrExist = false;
+                        Notification.Show(false, "QR не распознан", $"'{result.Text}' Не существует");
+                        Coldown();
                     }
                 }
             }
         }
 
+        private void Coldown(int seconds = 1)
+        {
+            isScanningEnabled = false;
+
+            timer.Interval = TimeSpan.FromSeconds(seconds);
+            timer.Tick += (s, e) =>
+            {
+                timer.Stop();
+                isScanningEnabled = true;
+            };
+            timer.Start();
+        }
+
         private void ShowLoading(bool show)
         {
-            LoadingOverlay.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            imgCamera.Visibility = show ? Visibility.Collapsed : Visibility.Visible;
+            brLoadingOverlay.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            grCamera.Visibility = show ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void rbFile_Checked(object sender, RoutedEventArgs e)
+        {
+            StopCameraAsync();
+
+            brCameraTip.Visibility = Visibility.Collapsed;
+            brLoadingOverlay.Visibility = Visibility.Collapsed;
+
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = "Изображения|*.png;*.jpg;*.jpeg;*.bmp;*",
+                Title = "Выберите изображение с QR-кодом"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    using (var bitmap = new Bitmap(openFileDialog.FileName))
+                    {
+                        if (barcodeReader == null)
+                            barcodeReader = new BarcodeReader();
+                        
+                        var result = barcodeReader.Decode(bitmap);
+
+                        if (result != null)
+                        {
+                            (bool qrExist, DataView dataView) = loader.CheckAndLoadProduct(result.ToString());
+
+                            if (qrExist)
+                            {
+                                Notification.Show(true, "Найден QR-код", $"Обнаружен '{result.Text}'");
+                            }
+                            else
+                            {
+                                Console.Beep(250, 300);
+                                Notification.Show(false, "QR не распознан", $"'{result.Text}' Не существует");
+                            }
+                        }
+                        else
+                        {
+                            Console.Beep(250, 300);
+                            Notification.Show(false, "Ошибка", "QR-код не найден на изображении");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Notification.Show(false, "Ошибка", $"Не удалось открыть файл: {ex.Message}");
+                }
+            }
+        }
+        private void rbCamera_Checked(object sender, RoutedEventArgs e)
+        {
+            InitializeCameraAsync();
         }
     }
 }

@@ -33,17 +33,17 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton Style="{StaticResource ToggleButton}" IsChecked="True" Grid.Column="0" Margin="5,0,5,0" Content="Включить камеру"/>
-                        <RadioButton Style="{StaticResource ToggleButton}" Grid.Column="2" Margin="5,0,5,0" Content="Из файла"/>
+                        <RadioButton x:Name="rbCamera" Style="{StaticResource ToggleButton}" Grid.Column="0" Margin="5,0,5,0" Content="Включить камеру" Checked="rbCamera_Checked"/>
+                        <RadioButton x:Name="rbFile" Style="{StaticResource ToggleButton}" Grid.Column="2" Margin="5,0,5,0" Content="Из файла" Checked="rbFile_Checked"/>
                     </Grid>
 
                     <Viewbox MaxHeight="600">
 
-                        <Border CornerRadius="5" Width="500" Background="#1f2c38" Height="400" >
-                            <Grid>
+                        <Border x:Name="brBox" CornerRadius="5" Width="500" Background="#1f2c38" Height="400" >
+                            <Grid x:Name="grCamera">
                                 <Image x:Name="imgCamera" Stretch="UniformToFill" Height="500"/>
 
-                                <Border x:Name="LoadingOverlay" 
+                                <Border x:Name="brLoadingOverlay" 
                                         Visibility="Visible">
                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                         <ProgressBar x:Name="LoadingSpinner" 

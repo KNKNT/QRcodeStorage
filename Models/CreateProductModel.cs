@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using QRcodeStorage.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,14 +32,14 @@ namespace QRcodeStorage.Models
                     command.Parameters.AddWithValue("@Description", product.Description ?? null);
 
                     int result = command.ExecuteNonQuery();
-                    MessageBox.Show("Данные добавлены!");
+                    Notification.Show(true, "Успех", $"Данные обновлены");
                     return result > 0;
 
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Notification.Show(false, "Ошибка", ex.Message);
                 return false;
             }
         }
