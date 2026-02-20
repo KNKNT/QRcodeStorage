@@ -45,8 +45,8 @@ namespace QRcodeStorage
         }
         private async void NavigateToPage(Type pageType)
         {
-            if (currentPageType == typeof(ScanQR))
-                await scanQRPage.StopCameraAsync();
+            //if (currentPageType == typeof(ScanQR))
+            //    await scanQRPage.StopCameraAsync();
 
             if (pageType == typeof(ScanQR))
                 NavigationFrame.Content = new ScanQR();

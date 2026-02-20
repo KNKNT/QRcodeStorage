@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:QRcodeStorage.Pages"
+      xmlns:local="clr-namespace:QRcodeStorage.Views.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1350"
       Title="ScanQR">
@@ -33,113 +33,12 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton x:Name="rbCamera" Style="{StaticResource ToggleButton}" Grid.Column="0" Margin="5,0,5,0" Content="Включить камеру" Checked="rbCamera_Checked"/>
-                        <RadioButton x:Name="rbFile" Style="{StaticResource ToggleButton}" Grid.Column="2" Margin="5,0,5,0" Content="Из файла" Checked="rbFile_Checked"/>
+                        <RadioButton x:Name="rbCamera" Style="{StaticResource ToggleButton}" Grid.Column="0" Margin="5,0,5,0" Content="Включить камеру"/>
+                        <RadioButton x:Name="rbFile" Style="{StaticResource ToggleButton}" Grid.Column="2" Margin="5,0,5,0" Content="Из файла"/>
                     </Grid>
 
-                    <Viewbox MaxHeight="600">
 
-                        <Border x:Name="brBox" CornerRadius="5" Width="500" Background="#1f2c38" Height="400" >
-                            <Grid x:Name="grCamera">
-                                <Image x:Name="imgCamera" Stretch="UniformToFill" Height="500"/>
-
-                                <Border x:Name="brLoadingOverlay" 
-                                        Visibility="Visible">
-                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <ProgressBar x:Name="LoadingSpinner" 
-                                                       IsIndeterminate="True" 
-                                                       Width="40" Height="40" 
-                                                       Margin="0,0,0,20">
-                                            <ProgressBar.Style>
-                                                <Style TargetType="ProgressBar">
-                                                    <Setter Property="Foreground" Value="#FF007ACC"/>
-                                                    <Setter Property="Width" Value="48"/>
-                                                    <Setter Property="Height" Value="48"/>
-                                                    <Setter Property="IsIndeterminate" Value="True"/>
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="ProgressBar">
-                                                                <Grid>
-                                                                    <Ellipse x:Name="Circle" 
-                                                                             Stroke="{TemplateBinding Foreground}" 
-                                                                             StrokeThickness="8"
-                                                                             StrokeDashCap="Round"
-                                                                             StrokeDashOffset="0.1"
-                                                                             RenderTransformOrigin="0.5,0.5">
-                                                                        <Ellipse.RenderTransform>
-                                                                            <RotateTransform x:Name="Rotation"/>
-                                                                        </Ellipse.RenderTransform>
-                                                                        <Ellipse.StrokeDashArray>
-                                                                            <DoubleCollection>1.2 2</DoubleCollection>
-                                                                        </Ellipse.StrokeDashArray>
-                                                                    </Ellipse>
-                                                                </Grid>
-
-                                                                <ControlTemplate.Triggers>
-                                                                    <Trigger Property="IsIndeterminate" Value="True">
-                                                                        <Trigger.EnterActions>
-                                                                            <BeginStoryboard>
-                                                                                <Storyboard RepeatBehavior="Forever">
-                                                                                    <DoubleAnimation 
-                                                                                        Storyboard.TargetName="Rotation"
-                                                                                        Storyboard.TargetProperty="Angle"
-                                                                                        From="0" To="360"
-                                                                                        Duration="0:0:1.2"/>                                        
-                                                                                    <DoubleAnimation 
-                                                                                        Storyboard.TargetName="Circle"
-                                                                                        Storyboard.TargetProperty="StrokeDashOffset"
-                                                                                        From="0" To="3.2"
-                                                                                        Duration="0:0:1.2"
-                                                                                        AutoReverse="True"/>
-                                                                                </Storyboard>
-                                                                            </BeginStoryboard>
-                                                                        </Trigger.EnterActions>
-                                                                    </Trigger>
-                                                                </ControlTemplate.Triggers>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </ProgressBar.Style>
-                                        </ProgressBar>
-                                        <TextBlock x:Name="LoadingText" 
-                                                     Text="Загрузка камеры..." 
-                                                     Foreground="White" 
-                                                     FontSize="16"/>
-                                    </StackPanel>
-                                </Border>
-
-                                <Border x:Name="brCameraTip" Visibility="Collapsed" Background="#665A83C4" 
-                                    Margin="50" Height="auto"
-                                    CornerRadius="5"
-                                    VerticalAlignment="Bottom">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Style.Triggers>
-                                                <EventTrigger RoutedEvent="Loaded">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation
-                                                                Storyboard.TargetProperty="Opacity"
-                                                                From="1" To="0"
-                                                                Duration="0:0:0.5"
-                                                                BeginTime="0:0:8" />
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                    <StackPanel Margin="30">
-                                        <TextBlock Text="Наведите камеру на QR-код" Foreground="White" FontSize="20" FontWeight="Bold" Margin="0,0,0,5"/>
-                                        <TextBlock Text="В качестве модуля сканера используется веб камера устройства" FontSize="14" Foreground="White" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                        </Border>
-                    </Viewbox>
-
-
+                    <local:ucCamera/>
                 </StackPanel>
             </Grid>
 
