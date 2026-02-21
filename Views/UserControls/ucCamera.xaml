@@ -6,11 +6,11 @@
              xmlns:local="clr-namespace:QRcodeStorage.Views.UserControls"
              mc:Ignorable="d" 
              Height="auto" >
-    <Viewbox MaxHeight="600">
+    <Viewbox>
 
-        <Border x:Name="brBox" CornerRadius="5" Width="500" Background="#1f2c38" Height="400" >
-            <Grid x:Name="grCamera">
-                <Image x:Name="imgCamera" Stretch="UniformToFill" Height="500"/>
+        <Border x:Name="brBox" CornerRadius="5" MinHeight="300" Width="500" Background="#1f2c38" >
+            <Grid>
+                <Image x:Name="imgCamera" Stretch="Uniform"/>
 
                 <Border x:Name="brLoadingOverlay" 
                     Visibility="Visible">

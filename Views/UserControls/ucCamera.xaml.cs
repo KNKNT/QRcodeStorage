@@ -25,10 +25,15 @@ namespace QRcodeStorage.Views.UserControls
         public ucCamera()
         {
             InitializeComponent();
-        }
+            InitializeCameraAsync();
 
+            this.Unloaded += ucCamera_Unloaded;
+        }
+        private async void ucCamera_Unloaded(object sender, RoutedEventArgs e) => await StopCameraAsync();
+        
         private async Task InitializeCameraAsync()
         {
+            ShowLoading(true);
             await Task.Run(() =>
             {
                 try
@@ -148,7 +153,10 @@ namespace QRcodeStorage.Views.UserControls
         {
             isScanningEnabled = false;
 
-            timer.Interval = TimeSpan.FromSeconds(seconds);
+            var timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(seconds)
+            };
             timer.Tick += (s, e) =>
             {
                 timer.Stop();
@@ -160,7 +168,6 @@ namespace QRcodeStorage.Views.UserControls
         private void ShowLoading(bool show)
         {
             brLoadingOverlay.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            grCamera.Visibility = show ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }
