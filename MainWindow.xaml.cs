@@ -19,7 +19,11 @@ namespace QRcodeStorage
             this.Closed += MainWindow_Closed;
         }
         private async void MainWindow_Closed(object sender, EventArgs e) => await new ucCamera().StopCameraAsync();
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try { DragMove(); }
+            catch { return; }
+        }
         private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
         private void Button_Click_2(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -49,8 +53,8 @@ namespace QRcodeStorage
         }
         private async void NavigateToPage(Type pageType)
         {
-           if (currentPageType == typeof(ScanQR))
-               await ucCamera.StopCameraAsync();
+            if (currentPageType == typeof(ScanQR))
+                await ucCamera.StopCameraAsync();
 
             if (pageType == typeof(ScanQR))
                 NavigationFrame.Content = new ScanQR();
