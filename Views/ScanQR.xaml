@@ -33,37 +33,36 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton x:Name="rbCamera" Style="{StaticResource ToggleButton}" Grid.Column="0" Margin="5,0,5,0" Content="Включить камеру"/>
-                        <RadioButton x:Name="rbFile" Style="{StaticResource ToggleButton}" Grid.Column="2" Margin="5,0,5,0" Content="Из файла"/>
+                        <RadioButton x:Name="rbCamera" Style="{StaticResource ToggleButton}" Grid.Column="0" Margin="5,0,5,0" Content="Включить камеру" Click="rbCamera_Click"/>
+                        <RadioButton x:Name="rbFile" Style="{StaticResource ToggleButton}" Grid.Column="2" Margin="5,0,5,0" Content="Из файла" Click="rbFile_Click"/>
                     </Grid>
 
-
-                    <local:ucCamera/>
+                    <local:ucCamera x:Name="ucCamera" IsEnabled="True" />
+                    <local:ucFileInfo x:Name="_ucFileInfo" Visibility="Collapsed"/>
                 </StackPanel>
             </Grid>
 
             <Border Grid.Column="1" Margin="30,50,0,30" Background="White" CornerRadius="5">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Text="Информация о товаре" Foreground="Black" Margin="30" FontSize="24" FontWeight="Bold"/>
+                        <TextBlock Text="Информация о товаре" Foreground="Black" Margin="30,30,30,28" FontSize="24" FontWeight="Bold"/>
+                        <local:ucProductInfo x:Name="_ucProductInfo" Grid.Row="1" VerticalAlignment="Top"  Visibility="Collapsed"/>
 
-                    <Border Grid.Row="1" Margin="30,0,30,30" 
+                        <Border x:Name="grTip" Grid.Row="1" Margin="30,0,30,30"
                             Background="#f8faf9"
                             CornerRadius="5">
-                        <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="📷" Foreground="Black"  FontSize="104" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Отсканиркйте QR-код" FontSize="18" Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,5,0,0" FontWeight="Medium"/>
-                            <TextBlock Text="Информация о товаре появится здесь" FontSize="14" Foreground="Gray" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,5,0,0" />
-                        </StackPanel>
-                    </Border>
-
-
-
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="📷" Foreground="Black"  FontSize="104" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Отсканируйте QR-код" FontSize="18" Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,5,0,0" FontWeight="Medium"/>
+                                <TextBlock Text="Информация о товаре появится здесь" FontSize="14" Foreground="Gray" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,5,0,0" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

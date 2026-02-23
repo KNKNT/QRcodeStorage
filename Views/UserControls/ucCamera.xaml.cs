@@ -1,12 +1,13 @@
 ﻿using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using OpenCvSharp.WpfExtensions;
 using QRcodeStorage.Services;
+using System.ComponentModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using ZXing.Windows.Compatibility;
-using OpenCvSharp.Extensions;
-using OpenCvSharp.WpfExtensions;
 
 namespace QRcodeStorage.Views.UserControls
 {
@@ -25,13 +26,17 @@ namespace QRcodeStorage.Views.UserControls
         public ucCamera()
         {
             InitializeComponent();
-            InitializeCameraAsync();
 
-            this.Unloaded += ucCamera_Unloaded;
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                this.Loaded += ucCamera_Loaded;
+                this.Unloaded += ucCamera_Unloaded;
+            }
         }
-        private async void ucCamera_Unloaded(object sender, RoutedEventArgs e) => await StopCameraAsync();
-        
-        private async Task InitializeCameraAsync()
+        private async void ucCamera_Unloaded(object sender, RoutedEventArgs e) => await StopCameraAsync(); 
+        public async void ucCamera_Loaded(object sender, RoutedEventArgs e) => await InitializeCameraAsync();
+
+        public async Task InitializeCameraAsync()
         {
             ShowLoading(true);
             await Task.Run(() =>
@@ -85,6 +90,7 @@ namespace QRcodeStorage.Views.UserControls
 
         public Task StopCameraAsync()
         {
+            imgCamera.Source = null;
             return Task.Run(() =>
             {
                 try
@@ -128,7 +134,6 @@ namespace QRcodeStorage.Views.UserControls
             using (var bitmap = frame.ToBitmap())
             {
                 var result = barcodeReader.Decode(bitmap);
-
                 if (result != null)
                 {
                     (bool qrExist, DataView dataView) = loader.CheckAndLoadProduct(result.ToString());
@@ -168,6 +173,18 @@ namespace QRcodeStorage.Views.UserControls
         private void ShowLoading(bool show)
         {
             brLoadingOverlay.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void UserControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            bool isEnabled = (bool)e.NewValue;
+
+            if (isEnabled)
+                InitializeCameraAsync();
+            
+            else
+                StopCameraAsync();  
+            
         }
     }
 }

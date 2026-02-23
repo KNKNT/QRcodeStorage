@@ -81,6 +81,12 @@ namespace QRcodeStorage.Pages
                 tblCountError.Visibility = Visibility.Visible;
                 isCountValid = false;
             }
+            if (tbCount.Text.Contains('|'))
+            {
+                tblCountError.Text = "Недопустимое название";
+                tblCountError.Visibility = Visibility.Visible;
+                isCountValid = false;
+            }
 
             if (!isCountValid || !isProductValid)
                 return;

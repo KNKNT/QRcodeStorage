@@ -26,28 +26,35 @@ namespace QRcodeStorage.Services
             return dataTable.DefaultView;
         }
 
-        public (bool, DataView) CheckAndLoadProduct(string id)
+        public (bool, DataView?) CheckAndLoadProduct(string qrText)
         {
-            bool a;
+            bool rowsExist;
+            string[] idAndProduct = qrText.Split('|');
+
+            if (idAndProduct.Length != 2)
+                return (false, null);
+
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
 
-                var command = new MySqlCommand("SELECT name, category, maker, count, place, description " +
-                    "FROM showproducts where id_product = @id", connection);
+                var command = new MySqlCommand("SELECT * " +
+                    "FROM showproducts where id_product = @id and name = @product", connection);
 
-                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@id", idAndProduct[0]);
+                command.Parameters.AddWithValue("@product", idAndProduct[1]);
 
                 using (var reader = command.ExecuteReader())
                 {
-                    a = reader.HasRows;
-                    if(a)
+                    rowsExist = reader.HasRows;
+                    if (rowsExist)
                     {
+                        dataTable = new();
                         dataTable.Load(reader);
                     }
                 }
             }
-            return (a ,dataTable.DefaultView);
+            return (rowsExist, dataTable.DefaultView);
         }
 
         public List<Categories> LoadCategories()
