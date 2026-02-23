@@ -95,10 +95,10 @@
                             <ColumnDefinition Width="40"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="tblCount" Text="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <Border Width="1" Margin="0,7,0,7" Background="LightGray" HorizontalAlignment="Right"/>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <Button x:Name="btnPlus" Height="20" Width="30" >
+                            <Button x:Name="btnPlus" Height="20" Width="30" Click="btnPlus_Click" >
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
                                         <Setter Property="FontSize" Value="14"/>
@@ -112,12 +112,14 @@
                                                     </Border>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Foreground" Value="Gray"/>
+                                                            <Setter TargetName="border"  Property="Background" Value="#E3E3E3"/>
                                                         </Trigger>
                                                         <Trigger Property="IsPressed" Value="True">
                                                             <Setter Property="Foreground" Value="Gray"/>
                                                         </Trigger>
-
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Foreground" Value="Gray"/>
+                                                        </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
                                             </Setter.Value>
@@ -126,7 +128,7 @@
                                 </Button.Style>
                                 <TextBlock Text="▴" FontSize="20" VerticalAlignment="Center" Margin="0,5,0,0"/>
                             </Button>
-                            <Button x:Name="btnMinus" Height="20" Width="30" >
+                            <Button x:Name="btnMinus" Height="20" Width="30" Click="btnMinus_Click" >
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
                                         <Setter Property="FontSize" Value="14"/>
@@ -140,12 +142,14 @@
                                                     </Border>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Foreground" Value="Gray"/>
+                                                            <Setter TargetName="border"  Property="Background" Value="#E3E3E3"/>
                                                         </Trigger>
                                                         <Trigger Property="IsPressed" Value="True">
                                                             <Setter Property="Foreground" Value="Gray"/>
                                                         </Trigger>
-
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Foreground" Value="Gray"/>
+                                                        </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
                                             </Setter.Value>
@@ -158,10 +162,8 @@
                     </Grid>
                 </Border>
 
-                <Button Grid.Column="1" Style="{StaticResource UpdateButton}" Margin="14,0,0,0" >
-                    
+                <Button Grid.Column="1" Style="{StaticResource UpdateButton}" Margin="14,0,0,0" Click="Button_Click" >
                     <TextBlock Text="Списать" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-
                 </Button>
             </Grid>
         </Grid>

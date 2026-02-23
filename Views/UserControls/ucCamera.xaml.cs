@@ -1,6 +1,7 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using OpenCvSharp.WpfExtensions;
+using QRcodeStorage.Pages;
 using QRcodeStorage.Services;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,8 @@ namespace QRcodeStorage.Views.UserControls
     /// </summary>
     public partial class ucCamera : UserControl
     {
+        public ScanQR scanQR { get; set; }
+
         private Loader loader = new();
         private BarcodeReader barcodeReader;
         private VideoCapture capture;
@@ -143,6 +146,8 @@ namespace QRcodeStorage.Views.UserControls
                         Console.Beep(820, 300);
                         Notification.Show(true, "Найден QR-код", $"Обнаружен '{result.Text}'");
                         Coldown();
+
+                        scanQR.ShowCard(dataView);
                     }
                     else
                     {

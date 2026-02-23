@@ -1,5 +1,10 @@
-﻿using System;
+﻿using QRcodeStorage.Entity;
+using QRcodeStorage.Models;
+using QRcodeStorage.Pages;
+using QRcodeStorage.Services;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -23,6 +28,7 @@ namespace QRcodeStorage.Views.UserControls
     /// </summary>
     public partial class ucProductInfo : UserControl
     {
+
         public static readonly DependencyProperty IdProperty =
          DependencyProperty.Register("Id", typeof(int), typeof(ucProductInfo),
              new PropertyMetadata(0, OnPropertyChanged));
@@ -83,7 +89,11 @@ namespace QRcodeStorage.Views.UserControls
         public int Count
         {
             get { return (int)GetValue(CountProperty); }
-            set { SetValue(CountProperty, value); }
+            set
+            {
+                SetValue(CountProperty, value);
+                tbCount.Text = value.ToString();   
+            }
         }
 
         public string Description
@@ -91,21 +101,43 @@ namespace QRcodeStorage.Views.UserControls
             get { return (string)GetValue(DescriptionProperty); }
             set { SetValue(DescriptionProperty, value); }
         }
+
+        private int operationCount = 1;
+
+        private int OperationCount
+        {
+            get => operationCount;
+            set
+            {
+                operationCount = value;
+                tblCount.Text = operationCount.ToString();
+            }
+        }
+
+        User user = new();
+        Loader loader = new();
+        ScanQRModel scanQRModel = new ScanQRModel();
+
+
         public ucProductInfo()
         {
             InitializeComponent();
             DataContext = this;
             UpdateUI();
         }
-        
+
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = (ucProductInfo)d;
+
+            control.OperationCount = 1;
             control.UpdateUI();
+            control.UpdateButtonsState();
         }
 
         private void UpdateUI()
         {
+            tblCount.Text = operationCount.ToString();
             tbId.Text = Id.ToString();
             tbProductName.Text = string.IsNullOrEmpty(ProductName) ? "-" : ProductName;
             tbCategory.Text = string.IsNullOrEmpty(Category) ? "-" : Category;
@@ -113,6 +145,42 @@ namespace QRcodeStorage.Views.UserControls
             tbCount.Text = Count.ToString();
             tbPlace.Text = string.IsNullOrEmpty(Place) ? "-" : Place;
             tbDescription.Text = string.IsNullOrEmpty(Description) ? "-" : Description;
+        }
+
+        private void btnPlus_Click(object sender, RoutedEventArgs e)
+        {
+            if (OperationCount < Count)
+            {
+                OperationCount++;
+                UpdateButtonsState();
+            }
+        }
+
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (OperationCount > 0)
+            {
+                OperationCount--;
+                UpdateButtonsState();
+            }
+        }
+
+        private void UpdateButtonsState()
+        {
+            btnPlus.IsEnabled = OperationCount < Count;
+            btnMinus.IsEnabled = OperationCount > 0;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (OperationCount == 0)
+                return;
+
+            scanQRModel.MovementProduct(Id, OperationCount, user.Id, 1);
+
+            Count -= OperationCount;
+
+            UpdateUI();
         }
     }
 }

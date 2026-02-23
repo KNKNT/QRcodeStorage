@@ -24,12 +24,14 @@ namespace QRcodeStorage.Pages
         {
             InitializeComponent();
             rbCamera.IsChecked = true;
+            ucCamera.scanQR = this;
         }
         private void rbCamera_Click(object sender, RoutedEventArgs e)
         {
             _ucFileInfo.Visibility = Visibility.Collapsed;
             ucCamera.Visibility = Visibility.Visible;
         }
+
         private void rbFile_Click(object sender, RoutedEventArgs e)
         {
             ucCamera.Visibility = Visibility.Collapsed;
@@ -65,15 +67,7 @@ namespace QRcodeStorage.Pages
 
                                 Notification.Show(true, "Найден QR-код", $"Обнаружен '{result.Text}'");
 
-                                grTip.Visibility = Visibility.Collapsed;
-                                _ucProductInfo.Visibility = Visibility.Visible;
-                                _ucProductInfo.Id = Convert.ToInt32(dataView[0]["id_product"]);
-                                _ucProductInfo.ProductName = dataView[0]["name"].ToString();
-                                _ucProductInfo.Category = dataView[0]["category"].ToString();
-                                _ucProductInfo.Maker = dataView[0]["maker"].ToString();
-                                _ucProductInfo.Count = Convert.ToInt32(dataView[0]["count"]);
-                                _ucProductInfo.Place = dataView[0]["place"].ToString();
-                                _ucProductInfo.Description = dataView[0]["description"].ToString();
+                                ShowCard(dataView);
                             }
                             else
                             {
@@ -111,7 +105,19 @@ namespace QRcodeStorage.Pages
 
                 _ucFileInfo.Visibility = Visibility.Visible;
             }
-
+            
+        }
+        public void ShowCard(DataView dataView)
+        {
+            grTip.Visibility = Visibility.Collapsed;
+            _ucProductInfo.Visibility = Visibility.Visible;
+            _ucProductInfo.Id = Convert.ToInt32(dataView[0]["id_product"]);
+            _ucProductInfo.ProductName = dataView[0]["name"].ToString();
+            _ucProductInfo.Category = dataView[0]["category"].ToString();
+            _ucProductInfo.Maker = dataView[0]["maker"].ToString();
+            _ucProductInfo.Count = Convert.ToInt32(dataView[0]["count"]);
+            _ucProductInfo.Place = dataView[0]["place"].ToString();
+            _ucProductInfo.Description = dataView[0]["description"].ToString();
         }
     }
 }
