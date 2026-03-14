@@ -10,7 +10,7 @@
 
         <Border x:Name="brBox" CornerRadius="5" Width="500" Background="#1f2c38" Height="400" >
             <Grid x:Name="grCamera">
-                <Image x:Name="imgCamera" Stretch="UniformToFill" Height="500"/>
+                <Image x:Name="imgCamera" Stretch="Fill" Width="500" Height="400"/>
 
                 <Border x:Name="brLoadingOverlay" 
                     Visibility="Visible">

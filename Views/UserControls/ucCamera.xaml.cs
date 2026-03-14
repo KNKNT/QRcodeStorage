@@ -25,6 +25,8 @@ namespace QRcodeStorage.Views.UserControls
         public ucCamera()
         {
             InitializeComponent();
+            ShowLoading(true);
+            InitializeCameraAsync();
         }
 
         private async Task InitializeCameraAsync()

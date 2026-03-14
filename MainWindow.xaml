@@ -26,7 +26,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Background="#34495E" MouseDown="Border_MouseDown">
+        <Border Background="#34495E" MouseLeftButtonDown="Border_MouseLeftButtonDown">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button FontSize="20" Style="{StaticResource OtherButton}" Click="Button_Click_2">
                     <Viewbox Margin="2">
