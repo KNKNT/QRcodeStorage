@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using QRcodeStorage.Pages;
 using QRcodeStorage.Views.UserControls;
+using QRcodeStorage.Views;
+using QRcodeStorage.Pages;
 
 namespace QRcodeStorage
 {
@@ -14,16 +15,11 @@ namespace QRcodeStorage
         public MainWindow()
         {
             InitializeComponent();
-            btnCreateProduct.IsChecked = true;
-
-            this.Closed += MainWindow_Closed;
+            cNavigationPanel.Width = new GridLength(0);
+            NavigationFrame.Content = new Registration(this);
         }
-        private async void MainWindow_Closed(object sender, EventArgs e) => await new ucCamera().StopCameraAsync();
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try { DragMove(); }
-            catch { return; }
-        }
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
+        private async void Window_Closed(object sender, EventArgs e) => await new ucCamera().StopCameraAsync();
         private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
         private void Button_Click_2(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -55,7 +51,6 @@ namespace QRcodeStorage
         {
             if (currentPageType == typeof(ScanQR))
                 await ucCamera.StopCameraAsync();
-
             if (pageType == typeof(ScanQR))
                 NavigationFrame.Content = new ScanQR();
             else
