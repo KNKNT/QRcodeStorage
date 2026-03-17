@@ -29,19 +29,17 @@ namespace QRcodeStorage.Views.UserControls
         public ucCamera()
         {
             InitializeComponent();
-<<<<<<< HEAD
-            ShowLoading(true);
-            InitializeCameraAsync();
-        }
-=======
->>>>>>> lost-commit
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
                 this.Loaded += ucCamera_Loaded;
                 this.Unloaded += ucCamera_Unloaded;
             }
+            ShowLoading(true);
+            InitializeCameraAsync();
         }
+
+        
         private async void ucCamera_Unloaded(object sender, RoutedEventArgs e) => await StopCameraAsync(); 
         public async void ucCamera_Loaded(object sender, RoutedEventArgs e) => await InitializeCameraAsync();
 

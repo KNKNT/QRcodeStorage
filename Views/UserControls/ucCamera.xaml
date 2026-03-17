@@ -7,16 +7,10 @@
              mc:Ignorable="d" 
              Height="auto" IsEnabledChanged="UserControl_IsEnabledChanged" >
     <Viewbox>
-
-<<<<<<< HEAD
         <Border x:Name="brBox" CornerRadius="5" Width="500" Background="#1f2c38" Height="400" >
             <Grid x:Name="grCamera">
                 <Image x:Name="imgCamera" Stretch="Fill" Width="500" Height="400"/>
-=======
-        <Border x:Name="brBox" CornerRadius="5" MinHeight="300" Width="500" Background="#1f2c38" >
-            <Grid>
-                <Image x:Name="imgCamera" Stretch="Uniform"/>
->>>>>>> lost-commit
+
 
                 <Border x:Name="brLoadingOverlay" 
                     Visibility="Visible">
