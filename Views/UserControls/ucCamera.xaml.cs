@@ -1,12 +1,14 @@
 ﻿using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using OpenCvSharp.WpfExtensions;
+using QRcodeStorage.Pages;
 using QRcodeStorage.Services;
+using System.ComponentModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using ZXing.Windows.Compatibility;
-using OpenCvSharp.Extensions;
-using OpenCvSharp.WpfExtensions;
 
 namespace QRcodeStorage.Views.UserControls
 {
@@ -15,6 +17,8 @@ namespace QRcodeStorage.Views.UserControls
     /// </summary>
     public partial class ucCamera : UserControl
     {
+        public ScanQR scanQR { get; set; }
+
         private Loader loader = new();
         private BarcodeReader barcodeReader;
         private VideoCapture capture;
@@ -25,12 +29,25 @@ namespace QRcodeStorage.Views.UserControls
         public ucCamera()
         {
             InitializeComponent();
+<<<<<<< HEAD
             ShowLoading(true);
             InitializeCameraAsync();
         }
+=======
+>>>>>>> lost-commit
 
-        private async Task InitializeCameraAsync()
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                this.Loaded += ucCamera_Loaded;
+                this.Unloaded += ucCamera_Unloaded;
+            }
+        }
+        private async void ucCamera_Unloaded(object sender, RoutedEventArgs e) => await StopCameraAsync(); 
+        public async void ucCamera_Loaded(object sender, RoutedEventArgs e) => await InitializeCameraAsync();
+
+        public async Task InitializeCameraAsync()
         {
+            ShowLoading(true);
             await Task.Run(() =>
             {
                 try
@@ -82,6 +99,7 @@ namespace QRcodeStorage.Views.UserControls
 
         public Task StopCameraAsync()
         {
+            imgCamera.Source = null;
             return Task.Run(() =>
             {
                 try
@@ -125,7 +143,6 @@ namespace QRcodeStorage.Views.UserControls
             using (var bitmap = frame.ToBitmap())
             {
                 var result = barcodeReader.Decode(bitmap);
-
                 if (result != null)
                 {
                     (bool qrExist, DataView dataView) = loader.CheckAndLoadProduct(result.ToString());
@@ -135,6 +152,8 @@ namespace QRcodeStorage.Views.UserControls
                         Console.Beep(820, 300);
                         Notification.Show(true, "Найден QR-код", $"Обнаружен '{result.Text}'");
                         Coldown();
+
+                        scanQR.ShowCard(dataView);
                     }
                     else
                     {
@@ -150,7 +169,10 @@ namespace QRcodeStorage.Views.UserControls
         {
             isScanningEnabled = false;
 
-            timer.Interval = TimeSpan.FromSeconds(seconds);
+            var timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(seconds)
+            };
             timer.Tick += (s, e) =>
             {
                 timer.Stop();
@@ -162,7 +184,18 @@ namespace QRcodeStorage.Views.UserControls
         private void ShowLoading(bool show)
         {
             brLoadingOverlay.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            grCamera.Visibility = show ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void UserControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            bool isEnabled = (bool)e.NewValue;
+
+            if (isEnabled)
+                InitializeCameraAsync();
+            
+            else
+                StopCameraAsync();  
+            
         }
     }
 }

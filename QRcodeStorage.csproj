@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
     <PackageReference Include="MySql.Data" Version="9.6.0" />
     <PackageReference Include="OpenCvSharp4" Version="4.13.0.20260214" />
     <PackageReference Include="OpenCvSharp4.Extensions" Version="4.13.0.20260214" />

@@ -152,9 +152,9 @@ namespace QRcodeStorage.Pages
                             Margin = new Thickness(10, 0, 10, 0),
                         };
 
-                        var qrImage = GenerateQRCode($"{product.Id}");
+                        var qrImage = GenerateQRCode($"{product.Id}|{product.Name}");
 
-                        var image = new System.Windows.Controls.Image()
+                        var image = new Image()
                         {
                             Source = qrImage,
                             Stretch = Stretch.UniformToFill,

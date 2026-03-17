@@ -11,13 +11,13 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        ResizeMode="CanResize">
+        ResizeMode="CanResize" Closed="Window_Closed">
     
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
-    
-    <Grid>
+
+    <Grid Background="{StaticResource Background}">
         <Grid.Effect>
             <DropShadowEffect Direction="0" BlurRadius="20" Opacity="1" ShadowDepth="0"/>
         </Grid.Effect>
@@ -67,7 +67,7 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" MinWidth="58" MaxWidth="280"/>
+                <ColumnDefinition x:Name="cNavigationPanel" Width="240" />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -75,7 +75,6 @@
             <Grid Background="{StaticResource Foreground}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -101,18 +100,24 @@
 
 
                 <StackPanel Margin="0,15,15,15" Grid.Row="1">
-                    <RadioButton x:Name="btnCreateProduct" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар" Checked="CreateProducts_Checked"/>
-                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ShowProduct}" Content="Просмотр товара" Checked="ShowProducts_Checked"/>
-                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR" Checked="GenerateQR_Checked"/>
-                    <RadioButton Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR" Checked="ScanQR_Checked"/>
+                    <RadioButton x:Name="rbCreateProduct" IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Создать товар" Checked="CreateProducts_Checked"/>
+                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ShowProduct}" Content="Просмотр товара" Checked="ShowProducts_Checked"/>
+                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR" Checked="GenerateQR_Checked"/>
+                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR" Checked="ScanQR_Checked"/>
+                    <Border Height="1" Margin="15,15,0,0" Background="{StaticResource DefaultForeground}"/>
+                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Журнал товаров" Checked="CreateProducts_Checked"/>
+                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Прочее" Checked="GenerateQR_Checked"/>
                 </StackPanel>
 
 
             </Grid>
 
             <GridSplitter Grid.Column="0" 
+                      Name="gridSplitter"
                       HorizontalAlignment="Right" 
                       Background="Transparent" 
+                      IsTabStop="False"
+                      IsEnabled="False"
                       Width="10"/>
 
             <Frame x:Name="NavigationFrame" Background="{StaticResource Background}" NavigationUIVisibility="Hidden" Grid.Column="1"/>
