@@ -105,8 +105,8 @@
                     <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Генерация QR" Checked="GenerateQR_Checked"/>
                     <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_ScanQR}" Content="Сканирование QR" Checked="ScanQR_Checked"/>
                     <Border Height="1" Margin="15,15,0,0" Background="{StaticResource DefaultForeground}"/>
-                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Журнал товаров" Checked="CreateProducts_Checked"/>
-                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Прочее" Checked="GenerateQR_Checked"/>
+                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_CreateProduct}" Content="Журнал товаров" Checked="ProductLog_Checked"/>
+                    <RadioButton IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_GenerateQR}" Content="Прочее" Checked="Other_Checked"/>
                 </StackPanel>
 
 

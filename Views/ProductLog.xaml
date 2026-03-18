@@ -4,11 +4,129 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:QRcodeStorage.Views"
+      xmlns:srv="clr-namespace:QRcodeStorage.Services"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="ProductLog">
+    
+    <Page.Resources>
+        <srv:BooleanConverter x:Key="BooleanConverter" />
+        <srv:NullConverter x:Key="NullConverter" />
+    </Page.Resources>
 
-    <Grid>
-        
-    </Grid>
+    <Border Padding="30,0,30,0" Background="{StaticResource Background}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Журнал товаров" Foreground="{StaticResource Foreground}" FontSize="30" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <TextBlock Text="История добавления и списания товаров со склада" FontSize="14" Foreground="{StaticResource PageForeground}"/>
+                </StackPanel>
+
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Grid.Column="1">
+
+                    <Button 
+                    Style="{StaticResource CancelButton}"
+                    Content="Экспорт"
+                    Height="40"
+                    Width="150"/>
+                    <Button 
+                    Style="{StaticResource UpdateButton}"
+                    Content="Обновить"
+                    Height="40"
+                    Width="150" Margin="15,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Background="White" CornerRadius="15">
+                <Grid Margin="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Фильтры поиска:" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="0,0,7,0">
+                            <TextBlock FontSize="14" FontWeight="Medium" Margin="0,0,0,5"><Run Language="ru-ru" Text="Дата с"/></TextBlock>
+                            <DatePicker x:Name="tbDateFrom" FontSize="14" Height="40" VerticalContentAlignment="Center" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="8,0,7,0">
+                            <TextBlock FontSize="14" FontWeight="Medium" Margin="0,0,0,5"><Run Text="Дата "/><Run Language="ru-ru" Text="по"/></TextBlock>
+                            <DatePicker x:Name="tbDateTo" FontSize="14" Height="40" VerticalContentAlignment="Center" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Margin="8,0,7,0">
+                            <TextBlock FontSize="14" FontWeight="Medium" Margin="0,0,0,5"><Run Language="ru-ru" Text="Тип операции"/></TextBlock>
+                            <ComboBox x:Name="cbTypeOperation" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="3" Margin="8,0,7,0">
+                            <TextBlock Text="Товар" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                            <TextBox x:Name="tbProduct" FontSize="14" Height="40" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <Button 
+                            x:Name="btnResetFilters"
+                            Content="Сброс" 
+                            Style="{StaticResource CancelButton}" 
+                            Grid.Column="4" 
+                            Height="40" 
+                            Width="150"
+                            VerticalAlignment="Bottom" Margin="8,0,0,0" />
+                    </Grid>
+
+
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="2" Margin="0,30,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Товары на складе" FontSize="14" FontWeight="Medium" Margin="15,0,0,15"/>
+                <TextBlock FontSize="14" Foreground="Gray" FontWeight="Medium" Margin="0,0,15,0" HorizontalAlignment="Right">
+                <Run Text="Найденно: "/>
+                <Run Name="tblRowCount" Text="0"/>
+                </TextBlock>
+
+                <DataGrid x:Name="dgProducts" Style="{StaticResource MaterialDesignDataGrid}" IsReadOnly="True" Grid.Row="1" Margin="0,0,0,30" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="40"/>
+                        <DataGridTextColumn Header="Товар" Binding="{Binding name}" Width="*"/>
+                        <DataGridTextColumn Header="Количество" Binding="{Binding count}" Width="*"/>
+                        <DataGridTextColumn Header="Ответсвенный" Binding="{Binding fio}" Width="*" />
+                        <DataGridTextColumn Header="Дата списания" Binding="{Binding date}" Width="*" />
+                        <DataGridTextColumn Header="Тип" Binding="{Binding type}"  Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Border>
+
 </Page>

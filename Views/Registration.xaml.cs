@@ -1,4 +1,5 @@
 ﻿using QRcodeStorage.Entity;
+using QRcodeStorage.Services;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -52,6 +53,8 @@ namespace QRcodeStorage.Views
                 _mainWindow.rbCreateProduct.IsChecked = true;
                 _mainWindow.gridSplitter.IsEnabled = true;
                 _mainWindow.NavigationFrame.Opacity = 0;
+                
+                Session.CurrentUser = user;
 
                 AnimateNavigationPanel();
             }

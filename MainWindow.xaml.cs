@@ -4,14 +4,15 @@ using System.Windows.Input;
 using QRcodeStorage.Views.UserControls;
 using QRcodeStorage.Views;
 using QRcodeStorage.Pages;
+using QRcodeStorage.Entity;
 
 
 namespace QRcodeStorage
 {
     public partial class MainWindow : Window
     {
-        private ucCamera ucCamera;
-        private Type currentPageType;
+        ucCamera ucCamera;
+        Type currentPageType;
 
         public MainWindow()
         {
@@ -19,36 +20,25 @@ namespace QRcodeStorage
             cNavigationPanel.Width = new GridLength(0);
             NavigationFrame.Content = new Registration(this);
         }
+
+
+
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
         private async void Window_Closed(object sender, EventArgs e) => await new ucCamera().StopCameraAsync();
 
         private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
         private void Button_Click_2(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState == WindowState.Maximized
-                ? WindowState.Normal
-                : WindowState.Maximized;
-        }
+        private void Button_Click_1(object sender, RoutedEventArgs e) => WindowState = WindowState == WindowState.Maximized
+                                                                        ? WindowState.Normal
+                                                                        : WindowState.Maximized;
+        
+        private void ShowProducts_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ShowProduct));
+        private void CreateProducts_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(CreateProduct));
+        private void GenerateQR_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(GenerateQR));
+        private void ScanQR_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ScanQR));
+        private void ProductLog_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ProductLog));
+        private void Other_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ScanQR));
 
-        private void ShowProducts_Checked(object sender, RoutedEventArgs e)
-        {
-            NavigateToPage(typeof(ShowProduct));
-        }
-
-        private void CreateProducts_Checked(object sender, RoutedEventArgs e)
-        {
-            NavigateToPage(typeof(CreateProduct));
-        }
-
-        private void GenerateQR_Checked(object sender, RoutedEventArgs e)
-        {
-            NavigateToPage(typeof(GenerateQR));
-        }
-        private void ScanQR_Checked(object sender, RoutedEventArgs e)
-        {
-            NavigateToPage(typeof(ScanQR));
-        }
         private async void NavigateToPage(Type pageType)
         {
             if (currentPageType == typeof(ScanQR))

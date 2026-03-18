@@ -114,7 +114,7 @@ namespace QRcodeStorage.Views.UserControls
             }
         }
 
-        User user = new();
+        User user;
         Loader loader = new();
         ScanQRModel scanQRModel = new ScanQRModel();
 
@@ -176,7 +176,7 @@ namespace QRcodeStorage.Views.UserControls
             if (OperationCount == 0)
                 return;
 
-            scanQRModel.MovementProduct(Id, OperationCount, user.Id, 1);
+            scanQRModel.MovementProduct(Id, OperationCount, Session.CurrentUser.Id, 1);
 
             Count -= OperationCount;
 

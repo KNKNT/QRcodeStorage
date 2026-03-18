@@ -17,8 +17,10 @@ namespace QRcodeStorage.Models
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
+                    string query = "INSERT INTO movements(id_product, count, id_user, id_type) VALUES (@id, @count, @idUser, @idType);" +
+                                   "UPDATE products SET count = count - @count WHERE id_product = @id;";
 
-                    var command = new MySqlCommand(@"insert into movements(id_product, count, id_user, id_type) values (@id, @count, @idUser, @idType)", connection);
+                    var command = new MySqlCommand(query, connection);
 
                     command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@count", count);
