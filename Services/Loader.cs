@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using QRcodeStorage.Entity;
 using QRcodeStorage.Models;
 using System;
 using System.Collections.Generic;
@@ -100,6 +101,30 @@ namespace QRcodeStorage.Services
                         {
                             Id = reader.GetInt32("id_maker"),
                             Maker = reader.GetString("maker")
+                        });
+                    }
+                }
+            }
+            return makers;
+        }
+        public List<Types> LoadTypes()
+        {
+            var makers = new List<Types>();
+
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var command = new MySqlCommand("SELECT * FROM types", connection);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        makers.Add(new Types
+                        {
+                            Id = reader.GetInt32("id_type"),
+                            Type = reader.GetString("type")
                         });
                     }
                 }

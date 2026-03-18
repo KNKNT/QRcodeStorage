@@ -71,17 +71,17 @@
 
                         <StackPanel Margin="0,0,7,0">
                             <TextBlock FontSize="14" FontWeight="Medium" Margin="0,0,0,5"><Run Language="ru-ru" Text="Дата с"/></TextBlock>
-                            <DatePicker x:Name="tbDateFrom" FontSize="14" Height="40" VerticalContentAlignment="Center" />
+                            <DatePicker x:Name="tbDateFrom" FontSize="14" Height="40" VerticalContentAlignment="Center" SelectedDateChanged="tbDateFrom_SelectedDateChanged"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="8,0,7,0">
                             <TextBlock FontSize="14" FontWeight="Medium" Margin="0,0,0,5"><Run Text="Дата "/><Run Language="ru-ru" Text="по"/></TextBlock>
-                            <DatePicker x:Name="tbDateTo" FontSize="14" Height="40" VerticalContentAlignment="Center" />
+                            <DatePicker x:Name="tbDateTo" FontSize="14" Height="40" VerticalContentAlignment="Center" SelectedDateChanged="tbDateTo_SelectedDateChanged" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Margin="8,0,7,0">
                             <TextBlock FontSize="14" FontWeight="Medium" Margin="0,0,0,5"><Run Language="ru-ru" Text="Тип операции"/></TextBlock>
-                            <ComboBox x:Name="cbTypeOperation" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center"/>
+                            <ComboBox x:Name="cbTypeOperation" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" DropDownClosed="cbTypeOperation_DropDownClosed"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="3" Margin="8,0,7,0">
@@ -96,7 +96,7 @@
                             Grid.Column="4" 
                             Height="40" 
                             Width="150"
-                            VerticalAlignment="Bottom" Margin="8,0,0,0" />
+                            VerticalAlignment="Bottom" Margin="8,0,0,0" Click="btnResetFilters_Click" />
                     </Grid>
 
 
@@ -117,11 +117,11 @@
 
                 <DataGrid x:Name="dgProducts" Style="{StaticResource MaterialDesignDataGrid}" IsReadOnly="True" Grid.Row="1" Margin="0,0,0,30" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="40"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="auto"/>
                         <DataGridTextColumn Header="Товар" Binding="{Binding name}" Width="*"/>
-                        <DataGridTextColumn Header="Количество" Binding="{Binding count}" Width="*"/>
+                        <DataGridTextColumn Header="Количество" Binding="{Binding count}" Width="auto"/>
                         <DataGridTextColumn Header="Ответсвенный" Binding="{Binding fio}" Width="*" />
-                        <DataGridTextColumn Header="Дата списания" Binding="{Binding date}" Width="*" />
+                        <DataGridTextColumn Header="Дата списания" Binding="{Binding date, StringFormat=dd.MM.yyyy hh:mm:ss}" Width="*" />
                         <DataGridTextColumn Header="Тип" Binding="{Binding type}"  Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
