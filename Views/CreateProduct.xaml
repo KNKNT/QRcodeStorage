@@ -12,86 +12,18 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
                 <RowDefinition/>
-                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <Border Background="White" CornerRadius="15" Margin="0,20,0,20" ClipToBounds="True">
-
-
                 <StackPanel VerticalAlignment="Center">
-                    <RadioButton Height="70" Style="{StaticResource ModeButtonUp}" IsChecked="True"/>
+                    <RadioButton x:Name="rbCreateNewProduct" Height="70" Style="{StaticResource ModeButtonUp}" Checked="rbCreateNewProduct_Checked" />
                     <RadioButton Height="70" Style="{StaticResource ModeButtonDown}"  />
-
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="1" Background="White" CornerRadius="15">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Margin="15,15,15,0">
-                            <TextBlock Text="Название товара *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox x:Name="tbProduct" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
-                            <TextBlock x:Name="tblProductError" Visibility="Collapsed" Text="Поле не должно быть пустым" FontSize="14" FontWeight="Regular" Margin="0,-10,0,15" Foreground="Red"/>
+            <Frame x:Name="NavigationFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
 
-                            <TextBlock Text="Количество *" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox x:Name="tbCount" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15" PreviewTextInput="tbCount_PreviewTextInput"/>
-                            <TextBlock x:Name="tblCountError" Visibility="Collapsed" Text="Поле не должно быть пустым" FontSize="14" FontWeight="Regular" Margin="0,-10,0,15" Foreground="Red"/>
-
-                        </StackPanel>
-                        <StackPanel Margin="15,15,15,0" Grid.Column="1">
-                            <TextBlock Text="Категория " FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <ComboBox Name="cbCategory" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
-                            <TextBlock Text="Производитель " FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <ComboBox Name="cbMakers" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
-                            <TextBlock Text="Место хранения " FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox x:Name="tbPlace" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
-                        </StackPanel>
-                    </Grid>
-
-                </Grid>
-            </Border>
-
-            <Border 
-                Grid.Row="2"
-                Margin="0,30,0,0"
-                CornerRadius="15"
-                Background="White">
-
-                <Grid Margin="15,15,15,0">
-                    <TextBlock 
-                        Text="Описание " 
-                        FontSize="14" 
-                        FontWeight="Medium" 
-                        Margin="0,0,0,5"/>
-                    <TextBox x:Name="tbDescription" 
-                        FontSize="14" 
-                        Height="auto" 
-                        Margin="0,20,0,15" 
-                        AcceptsReturn="True" 
-                        AcceptsTab="True" 
-                        TextWrapping="Wrap"/>
-                </Grid>
-            </Border>
-
-            <StackPanel 
-                Margin="0,15,0,15"
-                Grid.Row="3"
-                Orientation="Horizontal" 
-                HorizontalAlignment="Right">
-
-                <Button x:Name="btnClearData" Style="{StaticResource CancelButton}" Height="45" Width="200" Content="Очистить форму" Margin="0,0,15,0" Click="ClearData_Click"/>
-                <Button x:Name="btnAddProduct" Style="{StaticResource AcceptButton}" Width="200" Height="45" Content="Добавить товар" Click="AddProduct_Click"/>
-            </StackPanel>
         </Grid>
     </Border>
 </Page>
