@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
     <!--#region System Buttons-->
     <Style TargetType="{x:Type Button}" x:Key="ExitButton">
         <Setter Property="FontSize" Value="14"/>
@@ -161,7 +161,7 @@
     </Style>
     <!--#endregion-->
 
-    
+
     <Style x:Key="MenuRadioButton" TargetType="RadioButton">
         <Setter Property="Margin" Value="0,5,0,5"/>
         <Setter Property="Foreground" Value="{StaticResource DefaultForeground}"/>
@@ -192,6 +192,117 @@
                             <Setter Property="FontWeight" Value="Medium" />
                             <Setter TargetName="activeBorder" Property="Background" Value="{StaticResource Active}"/>
                             <Setter TargetName="icon" Property="Fill" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModeButtonUp" TargetType="RadioButton">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultForeground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="#f9fbfd" CornerRadius="15,0,0,0" BorderThickness="1" BorderBrush="#e3e9f1">
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="activeIcon"
+                                        Margin="0,17,0,17"
+                                        Background="{StaticResource Active}"
+                                        Visibility="Collapsed"
+                                        Width="3"
+                                        CornerRadius="0,2,2,0"/>
+
+                                <Viewbox Margin="20,15,15,15">
+                                    <Path x:Name="icon"
+                                          VerticalAlignment="Center"
+                                      Data="M18 17h-2q-.425 0-.712-.288T15 16t.288-.712T16 15h2v-2q0-.425.288-.712T19 12t.713.288T20 13v2h2q.425 0 .713.288T23 16t-.288.713T22 17h-2v2q0 .425-.288.713T19 20t-.712-.288T18 19zM3 21q-.825 0-1.412-.587T1 19V5q0-.825.588-1.412T3 3h14q.825 0 1.413.588T19 5v4q0 .425-.288.713T18 10t-.712-.288T17 9V8H3v11h12q.425 0 .713.288T16 20t-.288.713T15 21z"
+                                      Stretch="Uniform"
+                                      Fill="#2c3e50"
+                                      Width="20" Height="20">
+                                    </Path>
+                                </Viewbox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" x:Name="activeBorder" Background="White" BorderThickness="1" Padding="10" BorderBrush="#e3e9f1" CornerRadius="0,15,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Создание нового товара" Foreground="#2c3e50" FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Text="Заполните форму, чтобы добавить товар в базу данных" FontWeight="Regular" Foreground="#949faa" FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Margin="15, 5, 0, 5" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" FontSize="20"  />
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                            <Setter TargetName="activeBorder" Property="Background" Value="#eef3fc"/>
+                            <Setter TargetName="activeIcon" Property="Visibility" Value="Visible"/>
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ModeButtonDown" TargetType="RadioButton">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultForeground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="#f9fbfd" CornerRadius="0,0,0,15" BorderThickness="1" BorderBrush="#e3e9f1">
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="activeIcon"
+                                    Margin="0,17,0,17"
+                                    Background="{StaticResource Active}"
+                                    Visibility="Collapsed"
+                                    Width="3"
+                                    CornerRadius="0,2,2,0"/>
+
+                                <Viewbox Margin="20,17,19,17">
+                                    <Path x:Name="icon"
+                                          VerticalAlignment="Center"
+                                          Data="M10 13H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1m-1 6H5v-4h4ZM20 3h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1m-1 6h-4V5h4Zm1 7h-2v-2a1 1 0 0 0-2 0v2h-2a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1M9 9H5V5h4Z"
+                                          Stretch="Uniform"
+                                          Fill="#2c3e50"
+                                          Width="20" Height="20">
+                                    </Path>
+                                </Viewbox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" x:Name="activeBorder" Background="White" BorderThickness="1" Padding="10" BorderBrush="#e3e9f1" CornerRadius="0,0,15,0">
+                            <StackPanel>
+                                <TextBlock Text="Пополнение запасов" Foreground="#2c3e50" FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Text="Выберите товар из таблицы и увеличьте его количество" FontWeight="Regular" Foreground="#949faa" FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Margin="15, 5, 0, 5" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" FontSize="20"  />
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                            <Setter TargetName="activeBorder" Property="Background" Value="#eef3fc"/>
+                            <Setter TargetName="activeIcon" Property="Visibility" Value="Visible"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

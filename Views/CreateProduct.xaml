@@ -11,16 +11,21 @@
     <Border Padding="30,0,30,0" Background="{StaticResource Background}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock Text="Создание нового товара" Foreground="{StaticResource Foreground}" FontSize="30" FontWeight="Bold" Margin="0,0,0,5"/>
-                <TextBlock Text="Заполните форму для добавления товара в базу" FontSize="14" Foreground="{StaticResource PageForeground}"/>
-            </StackPanel>
+            <Border Background="White" CornerRadius="15" Margin="0,20,0,20" ClipToBounds="True">
+
+
+                <StackPanel VerticalAlignment="Center">
+                    <RadioButton Height="70" Style="{StaticResource ModeButtonUp}" IsChecked="True"/>
+                    <RadioButton Height="70" Style="{StaticResource ModeButtonDown}"  />
+
+                </StackPanel>
+            </Border>
 
             <Border Grid.Row="1" Background="White" CornerRadius="15">
                 <Grid>
@@ -61,7 +66,7 @@
                 Margin="0,30,0,0"
                 CornerRadius="15"
                 Background="White">
-                
+
                 <Grid Margin="15,15,15,0">
                     <TextBlock 
                         Text="Описание " 
