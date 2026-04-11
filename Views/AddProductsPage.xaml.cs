@@ -1,20 +1,10 @@
 ﻿using QRcodeStorage.Models;
 using QRcodeStorage.Services;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using QRcodeStorage.Services;
 
 namespace QRcodeStorage.Views
 {
@@ -23,6 +13,7 @@ namespace QRcodeStorage.Views
     /// </summary>
     public partial class AddProductsPage : Page
     {
+        Categories categories = new();
         DataView dataView = new();
         Loader loader = new();
         DataRowView row;
@@ -33,12 +24,56 @@ namespace QRcodeStorage.Views
         {
             InitializeComponent();
             LoadTable();
+            LoadCategoriesComboBox();
+            LoadMakersComboBox();
         }
         
         private void LoadTable()
         {
             dataView = loader.LoadDataTable("SELECT * FROM ShowProducts");
             dgProducts.ItemsSource = dataView;
+        }
+        private void LoadCategoriesComboBox()
+        {
+            var _categories = loader.LoadCategories().Select(c => (c.Id, c.Category)).ToList();
+            categories.LoadComboBoxes(cbCategory, _categories);
+        }
+        private void LoadMakersComboBox()
+        {
+            var makers = loader.LoadMakers().Select(m => (m.Id, m.Maker)).ToList();
+            categories.LoadComboBoxes(cbMakers, makers);
+        }
+
+        private void Search()
+        {
+            try
+            {
+                List<string> filters = new List<string>();
+
+                if (!string.IsNullOrWhiteSpace(tbSearchName.Text))
+                {
+                    filters.Add($"[Name] LIKE '%{tbSearchName.Text}%'");
+                }
+
+                if (cbCategory.SelectedIndex > 0)
+                {
+                    string selectedCategory = cbCategory.Text.ToString();
+                    filters.Add($"[Category] = '{selectedCategory}'");
+                }
+
+                if (cbMakers.SelectedIndex > 0)
+                {
+                    string selectedCategory = cbMakers.Text.ToString();
+                    filters.Add($"[Maker] = '{selectedCategory}'");
+                }
+
+                string finalFilter = string.Join(" AND ", filters);
+                dataView.RowFilter = finalFilter;
+            }
+            catch (Exception ex)
+            {
+                Notification.Show(false, "Ошибка при фильтрации", ex.Message);
+            }
         }
 
         private void dgProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,6 +101,10 @@ namespace QRcodeStorage.Views
             count++;
             tblCount.Text = count.ToString();
         }
+
+        private void tbSearchName_TextChanged(object sender, TextChangedEventArgs e) => Search();
+        private void cbCategory_DropDownClosed(object sender, EventArgs e) => Search();
+        private void cbMakers_DropDownClosed(object sender, EventArgs e) => Search();
 
         private void tblCount_TextChanged(object sender, TextChangedEventArgs e)
         {

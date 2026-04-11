@@ -4,10 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:QRcodeStorage.Views"
+      xmlns:srv="clr-namespace:QRcodeStorage.Services"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="AddProductsPage">
-
+    <Page.Resources>
+        <srv:NullConverter x:Key="NullConverter" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -34,21 +37,17 @@
 
                     <StackPanel Margin="0,0,14,15">
                         <TextBlock Text="Название" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                        <TextBox x:Name="tbSearchName" FontSize="14" Height="40" VerticalContentAlignment="Center"/>
+                        <TextBox x:Name="tbSearchName" FontSize="14" Height="40" VerticalContentAlignment="Center" TextChanged="tbSearchName_TextChanged"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="0,0,7,0">
                         <TextBlock Text="Категория" FontSize="14" FontWeight="Medium" Margin="0,0,0,5" />
-                        <ComboBox  x:Name="cbCategory" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center"/>
+                        <ComboBox  x:Name="cbCategory" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center" DropDownClosed="cbCategory_DropDownClosed"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" Margin="7,0,0,0">
-                        <TextBlock Text="QR-код" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                        <ComboBox x:Name="cbQrCode" FontSize="14" Height="40" SelectedIndex="0" VerticalContentAlignment="Center">
-                            <ComboBoxItem Content="Все"/>
-                            <ComboBoxItem Content="С кодом"/>
-                            <ComboBoxItem Content="Без кода"/>
-                        </ComboBox>
+                        <TextBlock Text="Производитель " FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
+                        <ComboBox Name="cbMakers" FontSize="14" Height="40" VerticalContentAlignment="Center" Margin="0,0,0,15" DropDownClosed="cbMakers_DropDownClosed"/>
                     </StackPanel>
 
                     <Button 
@@ -69,12 +68,12 @@
         <DataGrid x:Name="dgProducts" Style="{StaticResource MaterialDesignDataGrid}" IsReadOnly="True" SelectionMode="Single" Grid.Row="1" AutoGenerateColumns="False" SelectionChanged="dgProducts_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding id_product}" Width="40"/>
-                <DataGridTextColumn Header="Название" Binding="{Binding name}" Width="0.3*"/>
-                <DataGridTextColumn Header="Категория" Binding="{Binding category}" Width="0.3*"/>
-                <DataGridTextColumn Header="Производитель" Binding="{Binding maker}" Width="0.3*" />
-                <DataGridTextColumn Header="Место хранения" Binding="{Binding place}"  Width="0.4*" />
-                <DataGridTextColumn Header="Описание" Binding="{Binding description}" Width="0.5*" />
-                <DataGridTextColumn Header="Кол-во" Binding="{Binding count}" Width="0.2*"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding name, Converter={StaticResource NullConverter}}" Width="0.3*"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding category, Converter={StaticResource NullConverter}}" Width="0.3*"/>
+                <DataGridTextColumn Header="Производитель" Binding="{Binding maker, Converter={StaticResource NullConverter}}" Width="0.3*" />
+                <DataGridTextColumn Header="Место хранения" Binding="{Binding place, Converter={StaticResource NullConverter}}"  Width="0.4*" />
+                <DataGridTextColumn Header="Описание" Binding="{Binding description, Converter={StaticResource NullConverter}}" Width="0.5*" />
+                <DataGridTextColumn FontWeight="Bold" Header="Кол-во" Binding="{Binding count, Converter={StaticResource NullConverter}}" Width="0.2*"/>
             </DataGrid.Columns>
         </DataGrid>
 
