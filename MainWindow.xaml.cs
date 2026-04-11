@@ -37,7 +37,7 @@ namespace QRcodeStorage
         private void GenerateQR_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(GenerateQR));
         private void ScanQR_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ScanQR));
         private void ProductLog_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ProductLog));
-        private void Other_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ScanQR));
+        private void Other_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(OtherPage));
 
         private async void NavigateToPage(Type pageType)
         {

@@ -310,6 +310,33 @@
         </Setter>
     </Style>
 
+    <Style x:Key="OtherRadioButton" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <StackPanel>
+
+                        <TextBlock Margin="15,0,15,5" Text="{TemplateBinding Property=Content}" FontSize="20"/>
+                        <Border x:Name="activeBorder"
+                        Background="Transparent"
+                        Height="2"
+                        CornerRadius="0,2,2,0"/>
+
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Foreground" Value="#415b76" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                            <Setter TargetName="activeBorder" Property="Background" Value="#415b76"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type ToggleButton}" x:Key="ToggleButton">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Regular"/>
