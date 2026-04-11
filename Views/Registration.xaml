@@ -9,7 +9,7 @@
       Title="Registration">
 
     <Grid>
-        <Border Height="400" Width="600" Margin="0,50,0,50" Background="White" CornerRadius="15" Padding="40">
+        <Border BorderThickness="1" BorderBrush="#e3e9f1" Height="400" Width="600" Margin="0,50,0,50" Background="White" CornerRadius="15" Padding="40">
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="Вход" Foreground="#2c3e50" FontSize="30" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 

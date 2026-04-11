@@ -31,7 +31,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
-                    <Border Background="White" Height="60" CornerRadius="5,5,0,0">
+                    <Border BorderThickness="1" BorderBrush="#e3e9f1" Background="White" Height="60" CornerRadius="5,5,0,0">
                         <StackPanel Background="Transparent" VerticalAlignment="Center" Orientation="Horizontal" Margin="15,0,0,0" >
                             <CheckBox x:Name="cbShowQr" Margin="0,6,0,0" Checked="cbShowQr_Checked" Unchecked="cbShowQr_Unchecked"/>
                             <TextBlock Text="Товары без QR-кода" FontSize="18" VerticalAlignment="Center" Margin="10,0,0,0" PreviewMouseLeftButtonUp="cbShowQr_PreviewMouseLeftButtonUp"/>
@@ -48,7 +48,7 @@
                 </StackPanel>
             </Grid>
 
-            <Border Grid.Column="1" Margin="30,50,0,30" Background="White" CornerRadius="5">
+            <Border Grid.Column="1" BorderThickness="1" BorderBrush="#e3e9f1" Margin="30,50,0,30" Background="White" CornerRadius="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="70"/>

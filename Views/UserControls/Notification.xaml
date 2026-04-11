@@ -16,7 +16,7 @@
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
 
-    <Border  Background="White" Margin="10" CornerRadius="10">
+    <Border  Background="White" Margin="10" CornerRadius="10" BorderThickness="1" BorderBrush="#e3e9f1">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="0" Opacity="0.3" Color="Black" BlurRadius="10"/>
         </Border.Effect>

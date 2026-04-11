@@ -42,7 +42,7 @@
                 </StackPanel>
             </Grid>
 
-            <Border Grid.Column="1" Margin="30,50,0,30" Background="White" CornerRadius="5">
+            <Border Grid.Column="1" BorderThickness="1" BorderBrush="#e3e9f1" Margin="30,50,0,30" Background="White" CornerRadius="5">
                 <Grid>
                     <Grid >
                         <Grid.RowDefinitions>
