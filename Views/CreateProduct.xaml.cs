@@ -18,5 +18,6 @@ namespace QRcodeStorage.Pages
             rbCreateNewProduct.IsChecked = true;   
         }
         private void rbCreateNewProduct_Checked(object sender, RoutedEventArgs e) => NavigationFrame.Content = new CreateNewProductPage();
+        private void RadioButton_Checked(object sender, RoutedEventArgs e) => NavigationFrame.Content = new AddProductsPage();
     }
 }

@@ -26,7 +26,22 @@ namespace QRcodeStorage.Services
             }
             return dataTable.DefaultView;
         }
+        public void UpdateStatus(List<int> id)
+        {
+            string idList = string.Join(",", id);
 
+            string query = $@"UPDATE Products 
+                            SET Qr = 1
+                            WHERE Qr = 0
+                            AND id_product IN ({idList})";
+
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                var command = new MySqlCommand(query, connection);
+                command.ExecuteNonQuery();
+            }
+        }
         public (bool, DataView?) CheckAndLoadProduct(string qrText)
         {
             bool rowsExist;

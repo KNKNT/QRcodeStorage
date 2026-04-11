@@ -102,7 +102,7 @@ namespace QRcodeStorage.Views.UserControls
             set { SetValue(DescriptionProperty, value); }
         }
 
-        private int operationCount = 1;
+        private int operationCount = 0;
 
         private int OperationCount
         {
@@ -130,7 +130,7 @@ namespace QRcodeStorage.Views.UserControls
         {
             var control = (ucProductInfo)d;
 
-            control.OperationCount = 1;
+            control.OperationCount = 0;
             control.UpdateUI();
             control.UpdateButtonsState();
         }
@@ -179,6 +179,7 @@ namespace QRcodeStorage.Views.UserControls
             scanQRModel.MovementProduct(Id, OperationCount, Session.CurrentUser.Id, 1);
 
             Count -= OperationCount;
+            OperationCount = 0;
 
             UpdateUI();
         }

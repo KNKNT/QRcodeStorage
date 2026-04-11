@@ -18,7 +18,7 @@
             <Border Background="White" CornerRadius="15" Margin="0,20,0,20" ClipToBounds="True">
                 <StackPanel VerticalAlignment="Center">
                     <RadioButton x:Name="rbCreateNewProduct" Height="70" Style="{StaticResource ModeButtonUp}" Checked="rbCreateNewProduct_Checked" />
-                    <RadioButton Height="70" Style="{StaticResource ModeButtonDown}"  />
+                    <RadioButton x:Name="rbAddProduct" Height="70" Style="{StaticResource ModeButtonDown}" Checked="RadioButton_Checked"  />
                 </StackPanel>
             </Border>
 

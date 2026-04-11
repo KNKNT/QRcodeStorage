@@ -253,7 +253,7 @@ namespace QRcodeStorage.Pages
                         encoder.Save(fs);
                     }
 
-                    product.UpdateStatus(idProducts);
+                    loader.UpdateStatus(idProducts);
                     UpdateTable();
 
                     Notification.Show(true, "Успех", $"{filePath} сохранён");

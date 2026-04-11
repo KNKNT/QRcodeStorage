@@ -17,8 +17,8 @@ namespace QRcodeStorage
         public MainWindow()
         {
             InitializeComponent();
-            cNavigationPanel.Width = new GridLength(0);
-            NavigationFrame.Content = new Registration(this);
+            //cNavigationPanel.Width = new GridLength(0);
+            //NavigationFrame.Content = new Registration(this);
         }
 
 
