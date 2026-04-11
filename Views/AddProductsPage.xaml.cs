@@ -25,10 +25,9 @@ namespace QRcodeStorage.Views
     {
         DataView dataView = new();
         Loader loader = new();
+        DataRowView row;
 
-        private int count;
-        
-
+        private int count, currentCount, id;
 
         public AddProductsPage()
         {
@@ -44,10 +43,13 @@ namespace QRcodeStorage.Views
 
         private void dgProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataRowView row = (DataRowView)dgProducts.SelectedItem;
-            count = Convert.ToInt32(row["count"]);
+            row = (DataRowView)dgProducts.SelectedItem;
+            currentCount = Convert.ToInt32(row["count"]);
+            id = Convert.ToInt32(row["id_product"]);
+            count = currentCount;
             tblCount.Text = count.ToString();
             Counter.IsEnabled = true;
+            btnAddProduct.IsEnabled = true;
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -81,7 +83,9 @@ namespace QRcodeStorage.Views
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            int totalCountOfProduct = count + currentCount;
+            loader.AddCount(id, totalCountOfProduct);
+            row["count"] = totalCountOfProduct;
         }
     }
 }

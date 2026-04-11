@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using QRcodeStorage.Entity;
 using QRcodeStorage.Models;
+using QRcodeStorage.Views;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -40,6 +41,38 @@ namespace QRcodeStorage.Services
                 connection.Open();
                 var command = new MySqlCommand(query, connection);
                 command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddCount(int id, int count)
+        {
+            try
+            {
+                string query = $@"UPDATE products 
+                            SET count = @count
+                            WHERE id_product = @id;
+
+                            INSERT INTO movements(id_product, count, id_user, id_type)
+                            VALUES(@id, @count, @id_user, 2)";
+
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    var command = new MySqlCommand(query, connection);
+
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@count", Math.Abs(count));
+                    command.Parameters.AddWithValue("@id_user", Session.CurrentUser.Id);
+
+                    command.ExecuteNonQuery();
+                }
+
+                Notification.Show(true, "Успех", "Товар добавлен");
+
+            }
+            catch (Exception ex)
+            {
+                Notification.Show(false, "Ошибка", ex.Message);
             }
         }
         public (bool, DataView?) CheckAndLoadProduct(string qrText)

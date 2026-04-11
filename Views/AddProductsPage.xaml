@@ -157,7 +157,7 @@
                 </Grid>
             </Border>
             
-            <Button x:Name="btnAddProduct" Style="{StaticResource AcceptButton}" Width="200" Height="45" Content="Пополнить" Click="btnAddProduct_Click" />
+            <Button IsEnabled="False" x:Name="btnAddProduct" Style="{StaticResource AcceptButton}" Width="200" Height="45" Content="Пополнить" Click="btnAddProduct_Click" />
         </StackPanel>
     </Grid>
 </Page>
