@@ -16,6 +16,8 @@ namespace QRcodeStorage.Services
         DataTable dataTable = new();
         public DataView LoadDataTable(string query)
         {
+            DataTable dataTable = new();
+
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();

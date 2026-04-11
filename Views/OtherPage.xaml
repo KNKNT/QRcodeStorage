@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:QRcodeStorage.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="650" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="1800"
       Title="OtherPage">
     <Border Padding="30,0,30,0" Background="{StaticResource Background}">
 
@@ -13,6 +13,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"/>
                 <RowDefinition/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <StackPanel VerticalAlignment="Center">
@@ -27,19 +28,26 @@
                 </Grid.RowDefinitions>
                 <Border Height="1" Background="LightGray" Margin="0,0,0,1" VerticalAlignment="Bottom"/>
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton Content="Пользователи" Style="{StaticResource OtherRadioButton}" IsChecked="True"/>
-                    <RadioButton Content="Роли" Style="{StaticResource OtherRadioButton}"/>
-                    <RadioButton Content="Товары" Style="{StaticResource OtherRadioButton}"/>
-                    <RadioButton Content="Категории" Style="{StaticResource OtherRadioButton}"/>
-                    <RadioButton Content="Производители" Style="{StaticResource OtherRadioButton}"/>
-                    <RadioButton Content="Движения" Style="{StaticResource OtherRadioButton}"/>
-                    <RadioButton Content="Типы" Style="{StaticResource OtherRadioButton}"/>
+                    <RadioButton x:Name="rbUsers" Content="Пользователи" Style="{StaticResource OtherRadioButton}" Checked="rbUsers_Checked"/>
+                    <RadioButton x:Name="rbRoles" Content="Роли" Style="{StaticResource OtherRadioButton}" Checked="rbRoles_Checked"/>
+                    <RadioButton x:Name="rbProducts" Content="Товары" Style="{StaticResource OtherRadioButton}" Checked="rbProducts_Checked"/>
+                    <RadioButton x:Name="rbCategories" Content="Категории" Style="{StaticResource OtherRadioButton}" Checked="rbCategories_Checked"/>
+                    <RadioButton x:Name="rbMakers" Content="Производители" Style="{StaticResource OtherRadioButton}" Checked="rbMakers_Checked"/>
+                    <RadioButton x:Name="rbMovements" Content="Движения" Style="{StaticResource OtherRadioButton}" Checked="rbMovements_Checked"/>
+                    <RadioButton x:Name="rbTypes" Content="Типы" Style="{StaticResource OtherRadioButton}" Checked="rbTypes_Checked"/>
                 </StackPanel>
 
-                <DataGrid Margin="0,15,0,0" Grid.Row="2" Style="{StaticResource MaterialDesignDataGrid}">
-                    
-                </DataGrid>
+                <DataGrid Margin="0,15,0,0" Grid.Row="1" Style="{StaticResource MaterialDesignDataGrid}"
+                          AutoGenerateColumns="True" Name="dgProducts" 
+                          CanUserAddRows="True"
+                          CanUserDeleteRows="True"
+                          IsReadOnly="False"/>
+
             </Grid>
+            <StackPanel Grid.Row="2" Margin="0,15,0,15" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnClearData" Style="{StaticResource CancelButton}" Height="45" Width="200" Content="Очистить" Margin="0,0,15,0" Click="ClearData_Click"/>
+                <Button x:Name="btnAddProduct" Style="{StaticResource AcceptButton}" Width="200" Height="45" Content="Подтвердить" Click="AddProduct_Click"/>
+            </StackPanel>
         </Grid>
     </Border>
 </Page>

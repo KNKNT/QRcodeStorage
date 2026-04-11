@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+    
     <!-- Базовые кисти в стиле Material Design -->
     <SolidColorBrush x:Key="MaterialDesignBackground" Color="#ffffff"/>
     <SolidColorBrush x:Key="MaterialDesignForeground" Color="#DD000000"/>
@@ -200,7 +200,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+   
     <!-- Основной стиль DataGrid -->
     <Style x:Key="MaterialDesignDataGrid" TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="{StaticResource MaterialDesignBackground}" />
@@ -298,5 +298,11 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    
+    <!-- Стиль для ячейки в режиме редактирования -->
+    <Style x:Key="MaterialDesignDataGridCellEditing" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Background" Value="{StaticResource MaterialDesignRowHover}" />
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesignPrimary}" />
+        <Setter Property="BorderThickness" Value="0,0,0,2" />
+    </Style>
 </ResourceDictionary>
