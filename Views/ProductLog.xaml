@@ -86,7 +86,7 @@
 
                         <StackPanel Grid.Column="3" Margin="8,0,7,0">
                             <TextBlock Text="Товар" FontSize="14" FontWeight="Medium" Margin="0,0,0,5"/>
-                            <TextBox x:Name="tbProduct" FontSize="14" Height="40" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="tbProduct" FontSize="14" Height="40" VerticalContentAlignment="Center" TextChanged="tbProduct_TextChanged"/>
                         </StackPanel>
 
                         <Button 

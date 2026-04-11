@@ -66,16 +66,22 @@ namespace QRcodeStorage.Views
                 DateTime fromDate = tbDateTo.SelectedDate.Value.Date;
                 filters.Add($"date < #{fromDate.AddDays(1):yyyy-MM-dd}#");
             }
+            if (cbTypeOperation.SelectedIndex != 0)
+            {
+                filters.Add($"type like '%{cbTypeOperation.Text}%'");
+            }
+            if (!string.IsNullOrEmpty(tbProduct.Text))
+            {
+                filters.Add($"name like '%{tbProduct.Text}%'");
+            }
             string result = string.Join(" AND ", filters);
             dataView.RowFilter = result;
         }
 
         private void cbTypeOperation_DropDownClosed(object sender, EventArgs e) => Search();
-
         private void tbDateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e) => Search();
-
         private void tbDateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e) => Search();
-
+        private void tbProduct_TextChanged(object sender, TextChangedEventArgs e) => Search();
         private void btnResetFilters_Click(object sender, RoutedEventArgs e)
         {
             dataView.RowFilter = null;
