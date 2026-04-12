@@ -5,6 +5,7 @@ using QRcodeStorage.Views.UserControls;
 using QRcodeStorage.Views;
 using QRcodeStorage.Pages;
 using QRcodeStorage.Entity;
+using QRcodeStorage.Services;
 
 
 namespace QRcodeStorage
@@ -17,8 +18,7 @@ namespace QRcodeStorage
         public MainWindow()
         {
             InitializeComponent();
-            cNavigationPanel.Width = new GridLength(0);
-            NavigationFrame.Content = new Registration(this);
+            btnExit_Click(null, new RoutedEventArgs());
         }
 
 
@@ -49,5 +49,11 @@ namespace QRcodeStorage
                 NavigationFrame.Content = Activator.CreateInstance(pageType);
         }
 
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            cNavigationPanel.Width = new GridLength(0);
+            NavigationFrame.Content = new Registration(this);
+            Session.CurrentUser = null;
+        }
     }
 }

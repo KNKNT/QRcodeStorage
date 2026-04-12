@@ -76,6 +76,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition/>
+                    <RowDefinition  Height="auto"/>
                 </Grid.RowDefinitions>
 
                 <Viewbox Margin="40,15,40, 0" MaxHeight="140" >
@@ -109,7 +110,7 @@
                     <RadioButton Uid="1" IsTabStop="False" Style="{StaticResource MenuRadioButton}" Tag="{StaticResource icon_Other}" Content="Прочее" Checked="Other_Checked" />
                 </StackPanel>
 
-
+                <Button x:Name="btnExit" Grid.Row="3" Content="Выход"  Margin="0,15,15,15" Style="{StaticResource MenuButton}" Tag="{StaticResource icon_Exit}" Click="btnExit_Click"/>
             </Grid>
 
             <GridSplitter Grid.Column="0" 

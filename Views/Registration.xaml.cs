@@ -56,11 +56,12 @@ namespace QRcodeStorage.Views
                 
                 Session.CurrentUser = user;
 
-                if (Session.CurrentUser.RoleId != 1)
                     foreach (UIElement objects in _mainWindow.ButtonsStackPanel.Children)
                     {
-                        if (objects.Uid == "1")
+                        if (Session.CurrentUser.RoleId != 1 & objects.Uid == "1")
                             objects.Visibility = Visibility.Collapsed;
+                        else
+                            objects.Visibility = Visibility.Visible;
                     }
 
                 AnimateNavigationPanel();

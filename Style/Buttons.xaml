@@ -161,6 +161,42 @@
     </Style>
     <!--#endregion-->
 
+    <Style x:Key="MenuButton" TargetType="Button">
+        <Setter Property="Margin" Value="0,5,0,5"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultForeground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Background="Transparent">
+                        <Border x:Name="activeBorder"
+                        Background="Transparent"
+                        Width="3"
+                        CornerRadius="0,2,2,0"/>
+
+                        <Viewbox Margin="15,0,0,0" >
+                            <Path x:Name="icon" 
+                          Data="{TemplateBinding Tag}"
+                          Stretch="Fill"
+                          Fill="{StaticResource DefaultForeground}"
+                          Width="20" Height="20">
+                            </Path>
+                        </Viewbox>
+
+                        <TextBlock Margin="15, 5, 0, 5" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" FontSize="20"  />
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#bf9ba3" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                            <Setter TargetName="activeBorder" Property="Background" Value="#bf9ba3"/>
+                            <Setter TargetName="icon" Property="Fill" Value="#bf9ba3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="MenuRadioButton" TargetType="RadioButton">
         <Setter Property="Margin" Value="0,5,0,5"/>

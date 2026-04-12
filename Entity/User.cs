@@ -86,7 +86,9 @@ namespace QRcodeStorage.Entity
                                     Login = reader.GetString("login");
                                     FirstName = reader.GetString("firstname");
                                     MidName = reader.GetString("midname");
-                                    LastName = reader.GetString("lastname");
+                                    LastName = reader.IsDBNull(reader.GetOrdinal("lastname"))
+                                        ? null
+                                        : reader.GetString("lastname"); 
                                     RoleId = reader.GetInt32("id_role");
 
                                     Notification.Show(true, "Успех", $"Выполнен вход от {Login}");
