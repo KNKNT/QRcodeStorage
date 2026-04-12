@@ -177,7 +177,7 @@
                         <Viewbox Margin="15,0,0,0" >
                             <Path x:Name="icon" 
                               Data="{TemplateBinding Tag}"
-                              Stretch="UniformToFill"
+                              Stretch="Fill"
                               Fill="{StaticResource DefaultForeground}"
                               Width="20" Height="20">
                             </Path>

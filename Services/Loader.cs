@@ -8,12 +8,42 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace QRcodeStorage.Services
 {
     class Loader : DataBase
     {
         DataTable dataTable = new();
+
+        public void SaveChanges(DataView dataView, string query)
+        {
+            try
+            {
+                DataTable changes = dataView.Table.GetChanges();
+
+                if (changes != null && changes.Rows.Count > 0)
+                {
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, connectionString))
+                    {
+                        MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
+
+                        adapter.Update(changes);
+
+                        dataView.Table.AcceptChanges();
+                        Notification.Show(true, "Успех","Изменения сохранены успешно!");
+                    }
+                }
+                else
+                {
+                    Notification.Show(false, "Ошибка" ,"Нет изменений для сохранения");
+                }
+            }
+            catch (Exception ex)
+            {
+                Notification.Show(false, "Ошибка", $"Ошибка при сохранении: {ex.Message}");
+            }
+        }
         public DataView LoadDataTable(string query)
         {
             DataTable dataTable = new();
