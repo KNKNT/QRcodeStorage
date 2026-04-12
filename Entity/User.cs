@@ -16,7 +16,7 @@ namespace QRcodeStorage.Entity
         public string Login { get; set; }
         public string FirstName { get; set; }
         public string MidName { get; set; }
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         public int RoleId { get; set; }
         public User() { }
         public User(int id, string login, string firstName, string midName, string lastName, int roleId)

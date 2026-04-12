@@ -31,7 +31,7 @@ namespace QRcodeStorage
         private void Button_Click_1(object sender, RoutedEventArgs e) => WindowState = WindowState == WindowState.Maximized
                                                                         ? WindowState.Normal
                                                                         : WindowState.Maximized;
-        
+
         private void ShowProducts_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(ShowProduct));
         private void CreateProducts_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(CreateProduct));
         private void GenerateQR_Checked(object sender, RoutedEventArgs e) => NavigateToPage(typeof(GenerateQR));
