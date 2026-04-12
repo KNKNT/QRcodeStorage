@@ -71,6 +71,8 @@ namespace QRcodeStorage.Views
                 HashPasswordsInDataTable();
 
             loader.SaveChanges(dataView, query);
+            dataView = loader.LoadDataTable(query);
+            dgProducts.ItemsSource = dataView;
         }
         private void rbUsers_Checked(object sender, RoutedEventArgs e)
         {
